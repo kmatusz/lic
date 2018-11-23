@@ -1,0 +1,149 @@
+---
+title: "clust"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = F, message = F)
+```
+## ładowanie bibliotek i danych
+```{r biblio}
+library(readr)
+library(tidyverse)
+library(factoextra)
+library(sp)
+library(rgdal)
+library(maptools)
+library(rgeos)
+library(leaflet)
+```
+```{r dane-load}
+load('warszawa_polygons.Rdata') #mapa warszawy
+#wczytanie danych z Zomato
+data_zomato <- rbind(read_csv("ver1_z_coords.csv"),
+                     read_csv("ver2_z_coords.csv"),
+                     read_csv("ver3_z_coords.csv"),
+                     read_csv("ver4_z_coords.csv"))
+#filtrowanie outlierów (narazie robocze z bounding box), wypada ok. 40
+#TODO:dodać filtrowanie po tym czy punkt wpada do deklarowanej dzielnicy
+data_zomato<-data_zomato%>%filter(if_correct)%>%
+  select(-if_correct_lng, -if_correct_lat, -if_correct)
+#zapisanie wszystkich obserwacji
+write.csv(data_zomato, 'full_data.csv')
+
+```
+```{r}
+coords<-data_zomato%>%select(lat, lng)
+```
+
+
+
+
+
+
+#### Mapa z dzielnicami
+```{r mapa}
+leaflet(data_zomato)%>%
+  addTiles()%>%
+  addCircleMarkers()
+```
+
+
+#### Wstępne przygotowanie danych do modelu
+```{r}
+#wszystkie liczby klastrów
+c(1:30)%>%map(~eclust(coords, k=.x, FUNcluster="kmeans"))->km_1_30
+
+c(1:30)%>%map(~eclust(coords, k=.x, FUNcluster="pam"))->pam_1_30
+
+c(1:30)%>%map(~eclust(coords, k=.x, FUNcluster="hclust"))->hclust_1_30
+pamclust_1_30<-vector('list', 30)
+for (i in 1:30){
+  pamclust_1_30[[i]]<-eclust(coords, k=i, FUNcluster = 'pam')
+  print(i)
+}
+pamclust_1_30[[10]]%>%fviz_silhouette()
+
+```
+```{r pam_silh}
+
+c2<-eclust(coords, k=20, FUNcluster="kmeans")
+fviz_silhouette(c2)
+```
+```{r}
+fviz_nbclust(coords, kmeans, method="silhouette")
+```
+
+```{r}
+
+c3<-eclust(coords, k=2, FUNcluster="kmeans")
+fviz_silhouette(c3)
+```
+```{r}
+luka<-cluster::clusGap(coords, FUN=kmeans, K.max=30, B=5)
+luka%>%fviz_gap_stat()
+```
+
+
+
+
+Sprawdzenie stat. hopkinsa- same współrzędne
+```{r hop_coord}
+clust_ten<-c(6:8)%>%map(function(x) get_clust_tendency(data_zomato[,11:12], x, F)[1])%>%map_dbl(function(x) x[[1]])
+plot(clust_ten)
+get_clust_tendency(data_zomato[,11:12], 3)
+```
+
+Statystyka hopkinsa na sanych współrzędnych ma max dla 7 klastrów i przyjmuje 0.28- czyli punkty pochodzą z rozkłau unif
+
+Hopkins dla wszystkich danych
+```{r hop_all}
+c(2:5)%>%map(function(x) get_clust_tendency(data_zomato%>%select(5,7,8,11,12), x, F)[1])%>%map_dbl(function(x) x[[1]])%>%plot()
+```
+
+#### DBSCAN
+```{r }
+library(dbscan)
+#kNNdist(data_zomato%>%select(lat, lng), k=5)
+kNNdistplot(data_zomato%>%select(lat, lng), k=10 )
+
+```
+
+
+```{r}
+eps<-0.001 #losowa wartość, dopiero tutaj wychodzi więcej niż 1 klaster
+db_res<-dbscan(data_zomato%>%select(lat, lng), eps, minPts = 3)
+db_res%>%hullplot(data_zomato%>%select(lat, lng), .)
+```
+
+
+
+
+
+
+#### Podsumowanie
+Nadal nie ma wszystkich dzielnic- pewnie rezultaty się zmienią po dodaniu peryferyjnych
+
+Trzeba lepiej zrobić złe klasyfikacje- dodać sprawdzanie czy punkt jest w odpowiedniej dzielnicy- z shp
+
+
+Statystyka hopkinsa dla do 30 klastrów- max 0.3- czyli dane losowe
+
+Silhouette dla 2 klastrów 0.6- to dobrze
+
+Max gap dla 16 klastrów- 1
+
+#### Co dalej?
+Dodać resztę obserwacji
+
+Sprawdzić czy w klastrach geograficznych są podobne charakterystyki- oceny itd
+
+Pobawić się z rodzajami kuchni- zrobić feature extraction
+
+Porobić jeszcze klastrowanie bardziej kompleksowo- odpalić pętlę z więcej parametrów
+
+
+
+
+
+

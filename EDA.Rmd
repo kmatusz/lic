@@ -1,0 +1,134 @@
+---
+title: "EDA"
+output: html_document
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = F, message = F)
+```
+## ładowanie bibliotek i danych
+```{r biblio}
+library(readr)
+library(tidyverse)
+library(factoextra)
+library(sp)
+library(rgdal)
+library(maptools)
+library(rgeos)
+library(knitr)
+library(leaflet)
+```
+```{r dane-load}
+load('warszawa_polygons.Rdata') #mapa warszawy
+#wczytanie danych z Zomato
+data_zomato <- rbind(read_csv("ver1_z_coords.csv"),
+                     read_csv("ver2_z_coords.csv"),
+                     read_csv("ver3_z_coords.csv"))
+#filtrowanie outlierów (narazie robocze z bounding box), wypada ok. 40
+#TODO:dodać filtrowanie po tym czy punkt wpada do deklarowanej dzielnicy
+data_zomato<-data_zomato%>%filter(if_correct)%>%
+  select(-if_correct_lng, -if_correct_lat, -if_correct)
+data_zomato%>%filter(between(lat, 52.1, 52.25))%>%
+  filter(between(lng, 20.9, 21.05))->data_zomato
+```
+```{r}
+coords<-data_zomato%>%select(lat, lng)
+```
+
+```{r}
+
+#plot na mapie 
+data_kmeans<-data_zomato_model%>%mutate(cl=c2$cluster)
+ggplot(data_kmeans, aes(lng,lat, color=as.factor(cl)))+geom_point()
+
+
+proj4string(warszawa_polygons) <- CRS("+proj=tmerc +lat_0=0 +lon_0=19 +k=0.9993 +x_0=500000 +y_0=-5300000 +ellps=GRS80 +units=m +no_defs")
+
+mapa_test<-spTransform(warszawa_polygons, CRS('+proj=longlat +datum=WGS84'))
+plot(mapa_test)
+degAxis(1)
+
+library(tmap)
+tm_shape(mapa_test)+
+  tm_polygons()+
+  tm_shape(sf_z)+
+  tm_dots('rating')
+#zamienione osie
+
+pts<-coords%>%SpatialPointsDataFrame(data=data_zomato, coords = )
+proj4string(pts)<-CRS('+proj=longlat +datum=WGS84')
+
+plot(warszawa_polygons)
+
+sf_z <- sf::st_as_sf(data_zomato, coords = c("lng","lat"))
+
+```
+
+#### Mapa z dzielnicami
+```{r mapa}
+leaflet(data_zomato)%>%
+  addTiles()%>%
+  addCircleMarkers()
+```
+
+#### Kuchnie
+```{r}
+
+#wstępna EDA rodzajów kuchni ----
+kuchnie<-data_zomato%>%select(res_id, cuisines)%>%
+  tidyr::separate(cuisines, into=paste0('X', 1:10), sep=',')%>%
+  gather(starts_with('X'), key='key', value='value')
+kuchnie<-kuchnie%>%mutate(value=str_replace(value, ' ', ''))
+kuchnie<-kuchnie%>%mutate(value=str_replace(value, '"', ''))
+kuchnie<-kuchnie%>%filter(!value%>%is.na())%>%select(-key)
+
+
+```
+
+
+```{r}
+
+#rodzaje kuchni
+kuchnie%>%group_by(value)%>%summarise(cnt=n())%>%arrange(desc(cnt))%>%
+  head(10)%>%kable()
+```
+
+```{r}
+#dodanie 1 kuchni do data_zomato
+
+data_zomato%>%select(res_id, cuisines)%>%
+  tidyr::separate(cuisines, into=paste0('X', 1:10), sep=',')%>%
+  gather(starts_with('X'), key='key', value='kuchnia1')%>%
+  filter(key=='X1')%>%select(-key)->kuchnia1
+
+
+data_zomato%>%select(res_id, cuisines)%>%
+  tidyr::separate(cuisines, into=paste0('X', 1:10), sep=',')%>%
+  gather(starts_with('X'), key='key', value='kuchnia2')%>%
+  filter(key=='X2')%>%select(-key)->kuchnia2
+
+
+data_zomato%>%select(res_id, cuisines)%>%
+  tidyr::separate(cuisines, into=paste0('X', 1:10), sep=',')%>%
+  gather(starts_with('X'), key='key', value='value')%>%
+  na.omit()%>%
+  group_by(res_id)%>%
+  tally()->no_cuis
+
+data_zomato%>%left_join(kuchnia1)%>%
+  left_join(kuchnia2)%>%
+  left_join(no_cuis)->data_zomato
+  
+```
+```{r}
+data_zomato%>%select(kuchnia1, kuchnia2)%>%table()%>%as.data.frame()%>%
+  arrange(desc(Freq))%>%
+  View()
+```
+
+
+
+
+
+
