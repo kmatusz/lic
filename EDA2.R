@@ -7,9 +7,10 @@ library(rgdal)
 library(maptools)
 library(rgeos)
 library(leaflet)
+library(dbscan)
 
-data_zomato<-read.csv('full_data.csv', stringsAsFactors = F)
-
+data_zomato<-read.csv('data_zomato_full.csv', stringsAsFactors = F)
+data_zomato<-data_zomato%>%filter(if_correct)
 coords<-data_zomato%>%select(lat, lng)
 
 
@@ -64,8 +65,8 @@ data_zomato%>%mutate(kuchnia_bin=ifelse(kuchnia1 %in% top_kuchnie, kuchnia1, 'in
 data_zomato%>%select(-X.1, -X, -links, -cuisines, -res_id)->data_zomato
 data_zomato%>%select(-adress)->data_zomato
 
-data_zomato%>%mutate(
-                     kuchnia2=str_replace(kuchnia2,'//"', ''))#->data_zomato
+#data_zomato%>%mutate(
+#                     kuchnia2=str_replace(kuchnia2,'//"', ''))#->data_zomato
 
 
 
@@ -160,7 +161,7 @@ ggplot(data_zomato, aes(x=clust, fill=kuchnia_bin))+geom_bar()
 ggplot(data_bar, aes(x=clust, y=fr, fill=kuchnia_bin))+geom_col()
 
 #DBSCAN ----
-library(dbscan)
+
 #kNNdist(data_zomato%>%select(lat, lng), k=5)
 kNNdistplot(coords, k=10 )
 #0.015
@@ -171,6 +172,43 @@ db_res%>%hullplot(data_zomato%>%select(lat, lng), .)
 db_res
 
 data_zomato$clust3<-db_res$cluster
+
+
+#zamiana koordynatów na projekcję w metrach----
+coords_grid<-coords%>%SpatialPoints()
+proj4string(coords_grid)<-CRS("+proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0 ")
+coords_grid <-spTransform(coords_grid,  CRS("+proj=utm +zone=34 +datum=WGS84"))
+plot(coords_grid)
+degAxis(2)
+
+coords_grid_m<-coords_grid@coords
+coords_grid<-coords_grid_m%>%
+  as.tibble()%>%
+  mutate(lat=lat-coords_grid@bbox[1,1],
+         lng=lng-coords_grid@bbox[2,1])
+rm(coords_grid_m)
+cbind(data_zomato, coords_grid)%>%View()
+#coords_grid zawiera koordynaty w metrach, gdzie (0,0) to początek bbox Warszawy
+#dane wyglądają w porządku ale warto by sprawdzić
+
+#robimy dbscan gdzie epsilon to teoretyczny promień dostępu dla chodzenia dla człowieka (4km/h= 0.6km/10 min)
+#poprawka na przeszkody po drodze więc 500 m
+
+eps<-500
+db_res_walk<-dbscan(coords_grid, eps, minPts = 4)
+db_res_walk
+
+#sprawdzamy zróżnicowanie w klastrze
+data<-cbind(data_zomato,db_res_walk$cluster)
+names(data)[15]<-'cluster'
+
+data%>%group_by(cluster)%>%summarise(a=(table(kuchnia_bin)%>%nrow()), n=n())%>%
+  filter(n<200)%>%
+  ggplot(aes(n,a))+geom_jitter()
+table(data$kuchnia_bin)#%>%nrow()
+
+
+
 
 
 
