@@ -1,4 +1,4 @@
-#wczytanie danych----
+﻿#wczytanie danych----
 library(readr)
 library(tidyverse)
 library(factoextra)
@@ -207,8 +207,29 @@ data%>%group_by(cluster)%>%summarise(a=(table(kuchnia_bin)%>%nrow()), n=n())%>%
   ggplot(aes(n,a))+geom_jitter()
 table(data$kuchnia_bin)#%>%nrow()
 
+#zróżnicowanie w klastrze
+# 1. Klastrowanie z 3 punktami w radiusie 400 m
+# Najpiew miary bez skalowania ze względu na ilość restauracji w klastrze
+# -ilość restauracji w klastrze (ok)
+# -ilość serwowanych kuchni w danym klastrze (ok)
+# -czy kuchnie są rozłożone równie różnorodnie jak w całym datasecie? (czy np są obszary z tylko kuchnią włoską) (TODO)
+# -średnia cena w całym datasecie i w poszczególnych klastrach, odchylenie (ok)
+# -IQR, min i max z ceny w klastrze w porównaniu do całego datasetu (ok)
+# Miary ze skalowaniem:
+# -% restauracji które mają unikatową kuchnię (TODO)
 
+cuisine_rare<-c("","") #tutaj dać kuchnie które mają mniej niż 25% udziału
+stats_clust<-data%>%group_by(cluster)%>%summarise(rest_cnt=n(), #ilość restauracji w klastrze
+  cuisine_cnt=(table(kuchnia1)%>%nrow(), #ilość kuchni w klastrze
+  if_rare=table(kuchnia1)%>%as.tibble()%>%select(1), #czy w klastrze jest 1 z rzadkich kuchni?
+  price_avg= mean(price, na.rm=TRUE), #średnia cena w klastrze
+  price_sd= sd(price, na.rm=TRUE), #sdev ceny w klastrze
+  price_iqr= IQR(price, na.rm=TRUE), #iqr ceny w klastrze
+  price_min=min(price, na.rm=TRUE), #min ceny w klastrze
+  price_max=max(price, na.rm=TRUE) #max ceny w klastrze
+  )
 
+#TODO: dodać zmienne z częstotliwością danej kuchni w klastrze 
 
 
 

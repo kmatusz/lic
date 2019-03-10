@@ -1,0 +1,38 @@
+## Requirements for MVP:
+### DBSCAN
+##### Count and placement of clusters in DBSCAN (MVP)
+##### Homogenity metrics in clusters (theory) (MVP)
+##### Homogenity inside clusters in DBSCAN (MVP)
+
+
+### Population density
+##### Check Warsaw boundaries (MVP)
+##### Matching rasters with restaurant data (MVP)
+##### Spatial correlation between rasters (theory) (MVP)
+##### Comparison between restaurant and population (MVP)
+
+
+
+
+
+
+
+
+
+
+
+
+## NTH:
+### DBSCAN
+
+##### Bootstraping of DBSCAN
+##### Parameters tuning in DBSCAN
+##### Spatial DBSCAN (theory) 
+
+
+### Population density
+
+##### Density estimation
+##### Monte carlo sampling 
+##### Comparison with DBSCAN results
+##### Monte carlo sampling (theory)
