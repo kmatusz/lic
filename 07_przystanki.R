@@ -42,14 +42,14 @@ degAxis(1)
 # zamiana projekcji
 proj_string_m <- "+proj=utm +zone=34 +datum=WGS84"
 
-bus_stops_m <- bus_stops %>%
+bus_stops <- bus_stops %>%
   st_transform(crs=proj_string_m)  
 
-roads_m <- roads %>% 
+roads <- roads %>% 
   st_transform(crs=proj_string_m)
 
 
-
+save(bus_stops, roads, file= "07_bus_stops_roads.Rdata")
 
 
 

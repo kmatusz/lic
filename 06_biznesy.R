@@ -33,11 +33,11 @@ biznesy %>%
 biznesy_adress$lat<-NA
 biznesy_adress$lng<-NA
 timer<-Sys.time()
-for (i in 3480:8000){
+for (i in 14902){
   temp<-get_geocode(biznesy_adress$full_adress[i])
   biznesy_adress$lat[i]<-temp$lat[1]
   biznesy_adress$lng[i]<-temp$lng[1]
-  Sys.sleep(1)
+  #Sys.sleep(1)
   if (i%%5==0) print(c(i, temp$lat[1], Sys.time()-timer))
 }
 
