@@ -1,0 +1,213 @@
+---
+title: ''
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(fig.width = 14, fig.height = 10) 
+```
+
+```{r, include=FALSE}
+library(rpart)
+library(readr)
+library(tidyverse)
+library(factoextra)
+library(sf)
+library(dbscan)
+library(caret)
+library(spdep)
+```
+
+```{r, include=FALSE, cache=TRUE}
+
+
+
+
+load("C:/rwiz/lic_wne/analiza/05_mapa.Rdata")
+load("C:/rwiz/lic_wne/analiza/08_full_grid.Rdata")
+load("C:/rwiz/lic_wne/analiza/08_biznesy_points.Rdata")
+ggplot2::theme_set(theme_bw(base_size = 18))
+options(scipen = 999)
+
+grid %>% 
+  st_set_geometry(NULL) -> non_spatial
+
+columns_mapping <- 
+  tribble(
+    ~old, ~new,
+    "TOT", "Population count",
+    "rest_count", "Restaurants count",
+    "biznes_count", "Business count",
+    "bus_count", "Bus stops count",
+    "roads", "Total roads length",
+    "if_rest", "Restaurant indicator"
+  )
+
+
+
+#' ###wykresy pudełkowe restaruacje i TOT/biznes
+
+
+box_populacja <- non_spatial %>% 
+  select(-grid_id) %>%
+  mutate(if_rest = ifelse(if_rest, "Yes", "No")) %>%
+  ggplot(aes(x = as.factor(if_rest), y = TOT, fill=as.factor(if_rest)))+ 
+  geom_boxplot() +
+  labs(x="Restaurant present in the area",
+       y = "Population density in the area",
+       title = "Restaurants and population density",
+       caption = "Source: Own work") +
+  scale_y_continuous(breaks = seq(0, 22500, 2500))+
+  scale_fill_brewer(palette = "Set3")+
+  theme(legend.position = "none",
+        title = element_text(size = 20))
+
+
+box_biznesy <- non_spatial %>% 
+  select(-grid_id) %>%
+  mutate(if_rest = ifelse(if_rest, "Yes", "No")) %>%
+  ggplot(aes(x = as.factor(if_rest), y = biznes_count, fill=as.factor(if_rest)))+ 
+  geom_boxplot() +
+  labs(x="Restaurant present in the area",
+       y = "Business density in the area",
+       title = "Restaurants and business density",
+       caption = "Source: Own work") +
+  scale_y_continuous(breaks = seq(0, 2100, 250))+
+  scale_fill_brewer(palette = "Set3")+
+  theme(legend.position = "none",
+        title = element_text(size = 20))
+
+box_plots <- gridExtra::arrangeGrob(box_populacja, box_biznesy, ncol=2)
+
+
+#' Density- populacja
+
+density_populacja <- non_spatial %>% 
+  select(-grid_id) %>%
+  ggplot(aes(x = TOT))+ 
+  geom_density() +
+  labs(x="Population count in the area",
+       y = "Density",
+       title = "Population density",
+       caption = "Source: Own work") +
+  scale_x_continuous(expand = c(0,0)) +
+  scale_y_continuous(expand = c(0,0)) +
+  theme(title = element_text(size = 20))
+
+#' Density- biznesy
+
+density_biznesy <- non_spatial %>% 
+  select(-grid_id) %>%
+  ggplot(aes(x = biznes_count))+ 
+  geom_density() +
+  labs(x="Businesses count in the area",
+       y = "Density",
+       title = "Businesses density",
+       caption = "Source: Own work") +
+  scale_x_continuous(expand = c(0,0)) +
+  scale_y_continuous(expand = c(0,0)) +
+  theme(title = element_text(size = 20))
+
+
+density_plots <- gridExtra::arrangeGrob(density_populacja, density_biznesy, ncol=2)
+
+```
+
+```{r, include=FALSE, cache=TRUE}
+map_biznes <- ggplot()+
+  geom_sf(data=grid %>% 
+            mutate(`log(Business count)`=
+                     ifelse(is.infinite(log(biznes_count)),
+                            0, log(biznes_count))), 
+          aes(fill=`log(Business count)`))+
+  labs(fill="log(Business count)",
+       title= "Business count",
+       caption = "Source: Own work") +
+  theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank(),
+        axis.title.y=element_blank(),
+        axis.text.y=element_blank(),
+        axis.ticks.y=element_blank(),
+        title = element_text(size = 20)) +
+  scale_fill_viridis_c()
+
+
+
+map_population <- ggplot()+
+  geom_sf(data=grid, 
+          aes(fill=TOT))+
+  labs(fill="Population count",
+       title= "Population count",
+       caption = "Source: Own work") +
+  theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank(),
+        axis.title.y=element_blank(),
+        axis.text.y=element_blank(),
+        axis.ticks.y=element_blank(),
+        title = element_text(size = 20)) +
+  scale_fill_viridis_c()
+
+
+
+map_restaurants <- ggplot()+
+  geom_sf(data=grid, 
+          aes(fill=ifelse(if_rest, "Yes", "No")))+
+  labs(fill="Is any restaurant \nin the area?",
+       title= "Restaurants presence",
+       caption = "Source: Own work") +
+  theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank(),
+        axis.title.y=element_blank(),
+        axis.text.y=element_blank(),
+        axis.ticks.y=element_blank(),
+        title = element_text(size = 20)) +
+  scale_fill_brewer(palette = "Set3")
+
+
+
+```
+
+```{r}
+map_biznes
+map_restaurants
+map_population
+```
+
+
+In my study I have restricted the analysis to the Warsaw metropoly. The variables included in the dataset are:
+
+- Restaruants locations
+- Businesses locations
+- Population density
+- Bus stops locations
+- Roads loactions.
+
+These features come from various sources. Restaurants' locations were obtained from Zomato website. There were 2341 observations total, but due to incorrect addresses, 72 restaurants were excluded. Population density comes from 2011 GUS National Census (https://geo.stat.gov.pl/nsp-2011). The data about businesses was gathered from (...). Location of bus stops and roads was obtained using Open Street Map service. 
+
+Although restaurants, businesses and infrastructural features (bus stops and roads) are points data, population density is in a form of an 1km x 1km aggregated grid. Thus, to asses population influence on the presence of restaurants, it was neccesary to convert all variables to the same format. To do this, all variables were binned to a grid in the same resolution as population density data. 
+
+The map of restaurants locations (...) shows that there exists high centrality. Also, in regions far from city centre it is visible that restaurants are located in proximity to the largest streets, some of which are exit roads. 
+
+```{r mapa}
+
+```
+
+
+Population and business presence are also highly concetrated in the city centre. 
+After binning the points data to a grid it can be seen that both restaurants and businesses locations distributions are highly skewed. Typical power law distribution is observed, with majority of values close to 0 and few observations with extreme values. The population density data is also highly right-skewed, but to a way lower extent than the other two variables. 
+
+```{r, echo=FALSE}
+density_plots %>% plot()
+```
+
+As shown on the boxplots (...), the subsamples containig and not containing any restaurants are significantly different in terms of business and population locations. Average business count in a grid cell in which the restaurants was present was 116.62, while in regions without restaurants was only 14.53. Similarly, average population density in restaurants' regions was 5784.74, compared to 1613.98 in regions without restaurants presence. 
+
+```{r, echo=FALSE}
+box_plots %>% plot()
+```
+
+The join-count statistic was performed on restaurants presence data. With p-value< 0.0001, there is evidence that spatial autocorrelation in target variable exists. This means that estimates using non-spatial modeling will be biased, and there is neccessity to take spatial dimension into account.

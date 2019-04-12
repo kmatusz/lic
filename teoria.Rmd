@@ -1,0 +1,153 @@
+---
+title: "teoria"
+output:
+  word_document:
+    df_print: paged
+bibliography: bib.bibtex
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#### Walkability
+Walking is the most natural means of transport for human species. After the invention of automobile, cities authorities and urban planists were't paying much attention to pedestrians. Infrastructure expenses concerning car traffic were of higher priority, mostly because number of people owning a car was constantly rising. 
+
+Due to an uncontrollable suburbs expansion and longer commute time, owning a car for most citizens became a neccesity. Cars were made the most important means of transport in most of the newly built cities. 
+
+In the (...) urban planists noticed that cities built for cars were becoming more and more unpleasant to live in. Traffic jams became a serious problem despite big infrastructure expenses, and air pollution was constantly rising. 
+
+
+
+
+Walkability is described as "The extent to which characteristics of the built environment and land use may or may not be conductive to residents in the area walking for either leisure, exercise or recreation, to access services, or to travel to work" [@measuring_gis_leslie]. It is a central concept for few urbanism approaches, the most important of which include New Urbanism [@charter_urbanism] and Sustainable Urbanism [@sustainable_urbanism; @freiburg_charter]. 
+
+5C rules (TODO: Dopisać cytowania z [@measuring_lisbon]):
+Connected- pedestrian routes should form comprehensive network and give access to transportation hubs, i.e. bus and metro stops. 
+
+Convenient- The routes should be designed for pedestrians, not for vehicles. Accesibility for impaired should also be taken under serious consideration. 
+Comfortable- Walking experience should be un
+Convivial- Routes should encourage direct contact with other users and be safe.
+Conspicuous- Streets should be properly marked to avoid confusion regarding location.
+
+
+
+
+Researchers show many benefits associated with walkability. (for summary see [@economic_value_walk])
+
+
+
+1.Reduced transportation costs for households
+2.Higher household values in walkable neighborhood
+3.Health cost savings 
+4.Increase of local business retail sales 
+5.Public savings regrading lower investment in automobile roads
+5.Social
+1.Walkable streets important for revitalisation
+2.Lower forclosure rates in walkable areas
+3.Increased public health due to increased phisical activity
+6.Environmental
+1.Lower air and land pollution due to decreased traffic
+2.More efficient land use  
+
+
+7.Sposoby pomiaru
+There are 2 basic approaches to measuring walkability. One is subjective assesment made by inhabitants of given area. This method involves surveys on inhabitants in inspected area. 
+ 
+The other is using GIS data to asses quantitative measures. This family of methods is easily scalable to whole cities and facilitates comaprison between different areas and different studies.
+
+
+#### Cross-validation
+Dodać opis innych technik (LOOCV np)
+
+
+Cross validation is a widely used technique in model validation. Its goal is to predict, how well the model will generalize and perform on new data. 
+
+
+The procedure consists of 3 steps. Firstly, observations are randomly assigned to k separated groups (folds).
+
+
+A Cross-Validation technique requres independency of subsequent folds [@cv_survey]. When this assumption is violated, results obtained during model training and validation could be unreliable [@altman1990kernel]. In case of spatial data, where spatial autocorrelation occurs, randomly assigning observations to folds will result in dependent subpopulations. 
+
+To provide independence, one possible solution is to split the inspected region into non-overlapping areas. This technique was desribed in depth in [@roberts2017cross], and is used extensively (see 
+[@chung2003validation, @brenning2005spatial, @pinkerton2010spatial, @russ2010data, @hijmans2012cross]).
+
+
+
+
+``` {r include=FALSE, eval=FALSE}
+[@le2014spatial]
+Aim
+
+Processes and variables measured in ecology are almost always spatially autocorrelated, potentially leading to the choice of overly complex models when performing variable selection. One way to solve this problem is to account for residual spatial autocorrelation (RSA) for each subset of variables considered and then use a classical model selection criterion such as the Akaike information criterion (AIC). However, this method can be laborious and it raises other concerns such as which spatial model to use or how to compare different spatial models. To improve the accuracy of variable selection in ecology, this study evaluates an alternative method based on a spatial cross‐validation procedure. Such a procedure is usually used for model evaluation but can also provide interesting outcomes for variable selection in the presence of spatial autocorrelation.
+
+We propose to use a special case of spatial cross‐validation, spatial leave‐one‐out (SLOO), giving a criterion equivalent to the AIC in the absence of spatial autocorrelation. SLOO only computes non‐spatial models and uses a threshold distance (equal to the range of RSA) to keep each point left out spatially independent from the others. We first provide some simulations to evaluate how SLOO performs compared with AIC. We then assess the robustness of SLOO on a large‐scale dataset. R software codes are provided for generalized linear models.
+
+[@roberts2017cross]
+Ecological data often show temporal, spatial, hierarchical (random effects), or phylogenetic structure. Modern statistical approaches are increasingly accounting for such dependencies. However, when performing cross-validation, these structures are  regularly  ignored,  resulting  in  serious  underestimation  of  predictive  error.  One  cause  for  the  poor  performance  of uncorrected  (random)  cross-validation,  noted  often  by  modellers,  are  dependence  structures  in  the  data  that  persist  as dependence structures in model residuals, violating the assumption of independence. Even more concerning, because often overlooked, is that structured data also provides ample opportunity for overfitting with non-causal predictors. This problem can persist even if remedies such as autoregressive models, generalized least squares, or mixed models are used. Block cross-validation, where data are split strategically rather than randomly, can address these issues. However, the blocking strategy must  be  carefully  considered.  Blocking  in  space,  time,  random  effects  or  phylogenetic  distance,  while  accounting  for dependencies in the data, may also unwittingly induce extrapolations by restricting the ranges or combinations of predictor variables available for model training, thus overestimating interpolation errors. On the other hand, deliberate blocking in predictor space may also improve error estimates when extrapolation is the modelling goal. Here, we review the ecological literature on non-random and blocked cross-validation approaches. We also provide a series of simulations and case studies, in which we show that, for all instances tested, block cross-validation is nearly universally more appropriate than random cross-validation if the goal is predicting to new data or predictor space, or for selecting causal predictors. We recommend that block cross-validation be used wherever dependence structures exist in a dataset, even if no correlation structure is visible in the fitted model residuals, or if the fitted models account for such correlations
+
+[@wenger2012assessing]
+
+
+1. Ecologists have long sought to distinguish relationships that are general from those that are idiosyncratic to a narrow range of conditions. Conventional methods of model validation and selection assess in‐ or out‐of‐sample prediction accuracy but do not assess model generality or transferability, which can lead to overestimates of performance when predicting in other locations, time periods or data sets.
+
+2. We propose an intuitive method for evaluating transferability based on techniques currently in use in the area of species distribution modelling. The method involves cross‐validation in which data are assigned non‐randomly to groups that are spatially, temporally or otherwise distinct, thus using heterogeneity in the data set as a surrogate for heterogeneity among data sets.
+
+3. We illustrate the method by applying it to distribution modelling of brook trout (Salvelinus fontinalis Mitchill) and brown trout (Salmo trutta Linnaeus) in western United States. We show that machine‐learning techniques such as random forests and artificial neural networks can produce models with excellent in‐sample performance but poor transferability, unless complexity is constrained. In our example, traditional linear models have greater transferability.
+
+4. We recommend the use of a transferability assessment whenever there is interest in making inferences beyond the data set used for model fitting. Such an assessment can be used both for validation and for model selection and provides important information beyond what can be learned from conventional validation and selection techniques.
+
+
+
+[@radosavljevic2014making]
+
+Aim
+
+Models of species niches and distributions have become invaluable to biogeographers over the past decade, yet several outstanding methodological issues remain. Here we address three critical ones: selecting appropriate evaluation data, detecting overfitting, and tuning program settings to approximate optimal model complexity. We integrate solutions to these issues for Maxent models, using the Caribbean spiny pocket mouse, Heteromys anomalus, as an example.
+Location
+
+North‐western South America.
+Methods
+
+We partitioned data into calibration and evaluation datasets via three variations of k‐fold cross‐validation: randomly partitioned, geographically structured and masked geographically structured (which restricts background data to regions corresponding to calibration localities). Then, we carried out tuning experiments by varying the level of regularization, which controls model complexity. Finally, we gauged performance by quantifying discriminatory ability and overfitting, as well as via visual inspections of maps of the predictions in geography.
+Results
+
+Performance varied among data‐partitioning approaches and among regularization multipliers. The randomly partitioned approach inflated estimates of model performance and the geographically structured approach showed high overfitting. In contrast, the masked geographically structured approach allowed selection of high‐performing models based on all criteria. Discriminatory ability showed a slight peak in performance around the default regularization multiplier. However, regularization levels two to four times higher than the default yielded substantially lower overfitting. Visual inspection of maps of model predictions coincided with the quantitative evaluations.
+Main conclusions
+
+Species‐specific tuning of model parameters can improve the performance of Maxent models. Further, accurate estimates of model performance and overfitting depend on using independent evaluation data. These strategies for model evaluation may be useful for other modelling methods as well.
+
+
+[@bahn2013testing]
+Distribution models are used to predict the likelihood of occurrence or abundance of a species at locations where census data are not available. An integral part of modelling is the testing of model performance. We compared different schemes and measures for testing model performance using 79 species from the North American Breeding Bird Survey. The four testing schemes we compared featured increasing independence between test and training data: resubstitution, random data hold‐out and two spatially segregated data hold‐out designs. The different testing measures also addressed different levels of information content in the dependent variable: regression R2 for absolute abundance, squared correlation coefficient r2 for relative abundance and AUC/Somer’s D for presence/absence. We found that higher levels of independence between test and training data lead to lower assessments of prediction accuracy. Even for data collected independently, spatial autocorrelation leads to dependence between random hold‐out test data and training data, and thus to inflated measures of model performance. While there is a general awareness of the importance of autocorrelation to model building and hypothesis testing, its consequences via violation of independence between training and testing data have not been addressed systematically and comprehensively before. Furthermore, increasing information content (from correctly classifying presence/absence, to predicting relative abundance, to predicting absolute abundance) leads to decreasing predictive performance. The current tests for presence/absence distribution models are typically overly optimistic because a) the test and training data are not independent and b) the correct classification of presence/absence has a relatively low information content and thus capability to address ecological and conservation questions compared to a prediction of abundance. Meaningful evaluation of model performance requires testing on spatially independent data, if the intended application of the model is to predict into new geographic or climatic space, which arguably is the case for most applications of distribution models
+
+[@elith2009species]
+Species distribution models (SDMs) are numerical tools that combine observations of species occurrence or abundance with environmental estimates. They are used to gain ecological and evolutionary insights and to predict distributions across landscapes, sometimes requiring extrapolation in space and time. SDMs are now widely used across terrestrial, freshwater, and marine realms. Differences in methods between disciplines reflect both differences in species mobility and in “established use.” Model realism and robustness is influenced by selection of relevant predictors and modeling method, consideration of scale, how the interplay between environmental and geographic factors is handled, and the extent of extrapolation. Current linkages between SDM practice and ecological theory are often weak, hindering progress. Remaining challenges include: improvement of methods for modeling presence-only data and for model selection and evaluation; accounting for biotic interactions; and assessing model uncertainty.
+```
+
+#### Random Forest
+#### Random Forest- VI
+
+Random Forest is a machine learning algorithm ....
+
+The Random Forest algorithm is widely populated method of machine learning. In his work introducing this method, Breiman (...) suggests model-specific Variable Importance aseesment method. In this method, 
+
+In prediction tasks, often the ultimate goal for the researcher is to find the best avaliable model in terms of prediction accuracy. In some areas it is a sufficient question to answer. However, in various tasks, equally important question should be (and often is) posed: *what causes* specific model behaviour? 
+
+Which factors influence the model's decision the most? 
+
+For overview of Variable Importance methods, see (...)
+
+Random Forest method is a widely used method in various areas of study. It was succesfullly used in areas of ... (...), ... (), and ... ().
+
+However, the usage of Random Forest for spatial modeling is not widely populated. Various studies were conducted in natural sciences. (...) analyzed the usage of Random Forest in comparison with Multiple Linear Regression for prediction of carbon mapping in Amazon Forest. They showed that using spatial context with Random Forest improved explained variation by 16%. 
+
+Similarly, a (..) study, [@vceh2018estimating] used Ranom Forest and Multiple Regression for apartaments prices prediction. Using the first method, improvement in prediction measured by R^2 was 0.34. In this study, however, spatial dimension was not taken into account. 
+
+Above examples show that Random Forest can give massive improvement in prediction accuracy. 
+
+
+
+### References
+
+

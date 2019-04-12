@@ -8,7 +8,9 @@ load("C:/rwiz/lic_wne/analiza/05_mapa.Rdata")
 load("C:/rwiz/lic_wne/analiza/07_bus_stops_roads.Rdata")
 
 biznesy <- read_csv("biznesy_geocode.csv")
-
+biznesy2 <- read_delim("all-Regon-geo (2).csv", 
+                                           ";", escape_double = FALSE, locale = locale(decimal_mark = ",", 
+                                                                                       grouping_mark = "."), trim_ws = TRUE)
 # biznesy----
 #filtrowanie
 biznesy <- biznesy %>% 
@@ -19,13 +21,21 @@ biznesy <- biznesy %>%
 
 #zmiana na sf
 biznesy<- biznesy %>% sf::st_as_sf(coords = c("lng", "lat")) 
+biznesy2<- biznesy2 %>%
+  filter(!is.na(lon), !is.na(lat)) %>%
+  sf::st_as_sf(coords = c("lon", "lat")) 
 
 #projekcja
 sf::st_crs(biznesy) <- "+proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0 "
+sf::st_crs(biznesy2) <- "+proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0 "
 
 #zmiana projekcji
 proj_string_m <- "+proj=utm +zone=34 +datum=WGS84"
 biznesy <- biznesy %>%
+  st_transform(crs=proj_string_m)  
+
+
+biznesy2 <- biznesy2 %>%
   st_transform(crs=proj_string_m)  
 
 #biznesy jako kropki w dobrym crs
@@ -39,7 +49,7 @@ biznesy <- biznesy %>%
 grid <- grid %>% select(1, grid_id, rest_count)
 
 #biznesy
-biznesy_intersection <- st_intersection(y = grid %>% select(grid_id) , x = biznesy)
+biznesy_intersection <- st_intersection(y = grid %>% select(grid_id) , x = biznesy2)
 
 
 biznesy_intersection %>%
@@ -54,7 +64,7 @@ grid <- grid %>%
 
 
 plot(map_contour %>% st_geometry())
-plot(biznesy %>% st_geometry(), add=TRUE)
+plot(biznesy2 %>% st_geometry(), add=TRUE)
 
 #ok
 
@@ -104,6 +114,9 @@ grid %>% select(roads) %>% plot()
 grid <- grid %>% mutate(if_rest=ifelse(rest_count>0, 1, 0))
 save(grid, file= "08_full_grid.Rdata")
 
+biznesy_intersection <- biznesy_intersection %>%
+  st_geometry()
+save(biznesy_intersection, file="08_biznesy_points.Rdata")
 
 
 
