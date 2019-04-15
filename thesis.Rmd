@@ -10,13 +10,61 @@ knitr::opts_chunk$set(echo = TRUE)
 
 #### Business location studies
 
-The location dimension was neglected in mainstream economics for a long time. As Krugman said: *"How  did  the  mainstream  cope  with  spatial  issues?  By  ignoring  them"* [@krugman1997development]. However, some theories of location were developed through the years. First approaches in the stream of classical economy concentrated on industry and production. Theory of industrial location made by Weber concentrated on transportation costs of raw materials and final products. According to the theory, entrepreneurs created their industrial sites in places where the cost of transportation was the lowest. 
+The location dimension was neglected in mainstream economics for a long time. As Krugman said: *"How  did  the  mainstream  cope  with  spatial  issues?  By  ignoring  them"* [@krugman1997development]. However, some theories of location were developed through the years. First approaches in the stream of classical economy concentrated on industry and agricuture. The earliest theory concerning location is by von Thunen. (...) His model of agricultural land layed (?) foundations for later works. Theory of industrial location made by Weber (...) concentrated on transportation costs of raw materials and final products. According to the theory, entrepreneurs created their industrial sites in places where the cost of transportation was the lowest. 
 
-Hotelling's location model is on of classical game theory models. Every firm wants to achieve the best location and attract as many customers as possible. The novelty of this model is that firms take their competitors' locations into account. As a result, similar firms are getting very close to each other, and in their interest is to have similar product as the competitors. This phenomenon is visible in retail market, especially bars, restaurants and pharmacies (...). 
+Later works of Walter Christaller should also be mentioned. He developed a central theory model (...), in which he tried to explain the location of cities and villages across the space. Similar to von Thunen model, a village has one function, that is to create space for exchange of goods produced somewhere else. This assumption was valid in pred- industrial era.
+
+Hotelling's linear city model (...) is on of classical game theory models. Every firm wants to achieve the best location and attract as many customers as possible. The novelty of this model is that firms take their competitors' locations into account. As a result, similar firms are getting very close to each other, and in their interest is to have similar product as the competitors. This phenomenon is visible in retail market, especially bars, restaurants and pharmacies (...). 
+
+Hotelling's theory was then expanded by Salop (...). Main difference was that instead of a strainght line, the street along which businesses competed was a circle with no-end points. 
+
+*empirycznie czynniki wpływające na industry i retail*
+
+  -https://www.tandfonline.com/doi/abs/10.1080/09593969300000014
+  -https://link.springer.com/article/10.1007/BF01947623
+  -https://e-archivo.uc3m.es/handle/10016/430?show=full
+  
+[@sadahiro2000pdf] Analyzed retail location data in Yokohama, Japan using a probability density function estimated. 
+[@lee1976locational] Hypothesised about a relationship between retail stores density and various socio-economic factors in the area. The data was aggregated to a grid and statistical analysis was performed. It was shown that population density does not have a significant influence on stores locations. It was suggested that spatial agglomertion may be a more important factor when making a decision about opening a store. 
+
+In an early study, [@rolph1932population] Showed that retail stores location is highly correlated with population density, average income in the area and other factors.
+
+[@esteban2006business] Used questionaires sent directly to randomly selected retail companies in the area to acquire the dat about performance of businesses. They showed nonlinear relationship between business performance and the area it resides in. Firms in high and low businesses density areas performed the worst compared to places in which number of businesses was moderate.
+
+The factors for choosing a site for a facotry and service-based businesses are fundamentally different. For example, in industry transportation costs of raw materials and final products must be taken under serious consideration. Avaliability of a big pool of skilled workforce specialised in a particular industry plays also an important role. (...) analyze an area of the Silicon Valley, USA in context of spatial clustering.
+
+In empirical research, there are two main approaches to estimating business location. One stream of studies concentrates on spatial agglomaration of businesses. It has its roots in Hotelling's linear city theory. 
+
+Second stream of studies strives to find factors influencing businesses locations. The reasoning here is that businesses 
+
+However it should be stated that these two approaches are highly dependent on each other. The reason of spatial clustering is twofold- one is that (...). However, spatial clustering occurs also because there are good conditions for particular business types in the area. 
+
+There is also another reason why taking account of aglomeration phenomenon is so evident in research studies. Data concerning location only is usually very easy to accuire, for instance compared to sales data in different location. No matter how valuable insights one would gather from such information, data of such kind is usually unavaliable to independent researchers. It can be hypothesized that such analyses are made in bigger companies, but the results are proprietary.
 
 
 
-[@van1999location] Provide extensive overview of existing economic theories regarding business location.
+
+
+#### Restaurants location studies 
+*tutaj cały wstęp teoretyczny*
+
+There is little publically avaliable research on restaurants location. According to Smith, most of the previous research *... has been done under contract for particular restaurant franchises..*, and thus is unavaliable for academic researchers [@patterns_restaurants]. 
+
+Retail location theory is particularly broad. .....
+
+There are 2 main streams of restaruants locations studies. 
+One is mainly concentrated on clustering tendencies in restaurants locations. As proven in numerous studies, (...), various spatial phenomena have been shown to cluster well. This is particularly apparent in locations of some bussinesses categories, as shown by (...). 
+
+[@pillsbury1987hamburger] Showed that restaurants locations have high clustering tendency. As claimed, *Today, virtually no new restaurant is found outside a cluster of its competitors*.  Moreover, restaurants clustering criteria used (socio-economics, ambiance and accessibility) were reflected in restaurants locations. Novelty of this study was not to classify restaurants by their types (fast food, family etc.), but rather the customers' needs they serve. This is based on the fact that for some types of restaurants (eg. soul food) there is no need for good avaliability, and *journey to dine* becomes an integral part of the dining experience.
+
+[@patterns_restaurants] Claim that some restaurants categories (mostly fast food) are highly clustered. Another finding was that population density is exponentialy related to traffic volume in the area. Higher raffic was also correlated with presence of some types of restaurants. 
+
+
+[@binkley1998demand] Estimated average expenditure for fast food restaurants across American cities using linear model. Among the best predictors were: average fast food price, average grocery price, unemployment rate and number of fast food restaurant in the area. It should also be mentioned that population density was not found to be significant.
+
+[@neighborhood_food] Examinated location of food stores and services in south-eastern part of the USA. The main concern of this study was to inspect relation between average income in the neighbourhood and racial structure, and location of food stores and restaurants. They found that in lower-income areas avalioability to high-quality food stores is lower. The same was apparent in mostly black neighbourhoods. Also, the quality of restaurants was bound to average income in the areas.
+
+[@ayatac2017location] Examinated spatial distribution of restaurants in Istanbul. In this study, data from 1997 and 2013 were analyzed. Thus, it was possible to analyze temporal dynamics. The influence of GNP per area, population density and distance from sea shore was investigated. First two factors were proven to be significant in both analyzed years. As Istanbul was rapidly developing throughout the years, some changes in spatial structure were observed, eg. restaurants *sprawled* from CBD and historical center to less habitated, suburban areas. 
 
 #### Estimation of Complex Spatial Models
 
