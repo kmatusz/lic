@@ -42,7 +42,7 @@ However it should be stated that these two approaches are highly dependent on ea
 There is also another reason why taking account of aglomeration phenomenon is so evident in research studies. Data concerning location only is usually very easy to accuire, for instance compared to sales data in different location. No matter how valuable insights one would gather from such information, data of such kind is usually unavaliable to independent researchers. It can be hypothesized that such analyses are made in bigger companies, but the results are proprietary.
 
 
-
+[@dube2016location] Showed that, in accordance with the classical location theories, businesses in primary sectors tend to be isolated and far from agglomeration center. In contrast, highly advanced manufactuirng and services  clustering tendency. 
 
 
 #### Restaurants location studies 
