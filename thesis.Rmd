@@ -20,11 +20,7 @@ Hotelling's theory was then expanded by Salop (...). Main difference was that in
 
 *empirycznie czynniki wpływające na industry i retail*
 
-  -https://www.tandfonline.com/doi/abs/10.1080/09593969300000014
-  -https://link.springer.com/article/10.1007/BF01947623
-  -https://e-archivo.uc3m.es/handle/10016/430?show=full
-  
-[@sadahiro2000pdf] Analyzed retail location data in Yokohama, Japan using a probability density function estimated. 
+
 [@lee1976locational] Hypothesised about a relationship between retail stores density and various socio-economic factors in the area. The data was aggregated to a grid and statistical analysis was performed. It was shown that population density does not have a significant influence on stores locations. It was suggested that spatial agglomertion may be a more important factor when making a decision about opening a store. 
 
 In an early study, [@rolph1932population] Showed that retail stores location is highly correlated with population density, average income in the area and other factors.
@@ -33,20 +29,53 @@ In an early study, [@rolph1932population] Showed that retail stores location is 
 
 The factors for choosing a site for a facotry and service-based businesses are fundamentally different. For example, in industry transportation costs of raw materials and final products must be taken under serious consideration. Avaliability of a big pool of skilled workforce specialised in a particular industry plays also an important role. (...) analyze an area of the Silicon Valley, USA in context of spatial clustering.
 
-In empirical research, there are two main approaches to estimating business location. One stream of studies concentrates on spatial agglomaration of businesses. It has its roots in Hotelling's linear city theory. 
-
-Second stream of studies strives to find factors influencing businesses locations. The reasoning here is that businesses 
+In empirical research, there are two main approaches to estimating business location. One stream of studies concentrates on spatial agglomaration of businesses. It has its roots in Hotelling's linear city theory. Second stream of studies strives to find factors influencing businesses locations. The reasoning here is that businesses 
 
 However it should be stated that these two approaches are highly dependent on each other. The reason of spatial clustering is twofold- one is that (...). However, spatial clustering occurs also because there are good conditions for particular business types in the area. 
 
-There is also another reason why taking account of aglomeration phenomenon is so evident in research studies. Data concerning location only is usually very easy to accuire, for instance compared to sales data in different location. No matter how valuable insights one would gather from such information, data of such kind is usually unavaliable to independent researchers. It can be hypothesized that such analyses are made in bigger companies, but the results are proprietary.
+There is also another groundbound reason why taking account of aglomeration phenomenon is so evident in research studies. Data concerning location is usually very easy to accuire, for instance compared to sales data in different location. No matter how valuable insights one would gather from such information, data of such kind is usually unavaliable to independent researchers. It can be hypothesized that such analyses are made in bigger companies, but the results are proprietary.
 
 
-[@dube2016location] Showed that, in accordance with the classical location theories, businesses in primary sectors tend to be isolated and far from agglomeration center. In contrast, highly advanced manufactuirng and services  clustering tendency. 
+
+[@dube2016location] Showed that, in accordance with the classical location theories, businesses in primary sectors tend to be isolated and far from agglomeration center. In contrast, highly advanced manufactuirng and services showed high clustering tendency. 
+
+
+[@van1999location] Show that small and big businesses should be treated separately in location studies, because motivations and avaliable resources vary considerably. Their study focuses on smaller businesses and is rather qualitative in nature. They claim that SMEs location decision is a short-term and is not a result of a extensive consideration. Also, the smaller the business, the bigger chance is that it will be established in proximity of its owners home.
 
 
 #### Restaurants location studies 
-*tutaj cały wstęp teoretyczny*
+
+As all of the above authors stated, the results obtained in one city or region should be carefully extrapolated to other areas. Each city has its own specifics, not to mention country's overall culture and its inhabitants habits.
+
+[@gluchowski2017rynek] Provide an overview of Warsaw restaurants market. They show that the number of restaurants is constantly growing, and Warsaw is a city with the most restaruants in Poland. 3 groups of customers visiting restaurants in Warsaw are shown- people doing this for entertainment purposes (eg. meeting with friends or experiencing new cuisines), tourists visiting Warsaw, and people deciding to take eat outside during the workday, reather than preparing meal at home.  
+
+[@http://dspace.uni.lodz.pl:8080/xmlui/bitstream/handle/11089/17305/ROZW%C3%93J%20TURYSTYKI%20KULINARNEJ.pdf?sequence=1&isAllowed=y] assess the rise and development of *cuilinary tourism*. They claim that a behaviour of traveling to c
+They provide short overview of restaurants history in modern, post-communism era in Poland, and Warsaw in particular.
+
+
+From the above studies concerning culinary business it can be stated that until now Poles were not much attracted to traditional cuisine. However, the movement of using traditional, long-forgotten polish recipes and ingredients is on the rise. 
+
+
+One common approach to asserting customers choices in restaurants is using a multi-attribute value theory. In this framework, customers have a set of attributes that they percievie as important for making a decision. These attributes and their personal values are then compared against the attributes of a business. If the assesment is positive, then a purchase is made. This apprach was used in a study by [@auty1992consumer], who use segmentation framework to analyze restaurants choices among customers. Various studies have been made and all of them show that importance of various attributes is highly consumer -dependent.
+
+[@johns2002consumer] Provided a review of studies concerning consumer behaviour in restaurant industry. 
+  
+[@sadahiro2000pdf] Analyzed retail location data in Yokohama, Japan using a probability density function estimated. 
+
+Restaurants locations can be analyzed from both supply and demand site. Despite the fact that restaurant location decision is made by the owner in the short term, it is consumer's force and decisions that influence whether particular restaurant will withstand the test of time.
+Consumer needs and habits are constantly changing and new behavioural patterns can be observed. 
+
+[@ayatac2017location] Showed how restaurants locations reflected Istanbul's cultural transformation and opening for Western culture. 
+
+
+
+
+
+[@smith1983restaurants] analyzed the location of restaurants in Kitchener-Waterloo.They showed that restaurants locations do not depend on land values in macro scale. However, various strategies are utilized to minimise ifluence of high rent- for example restaruants are located on smaller and less visited streets downtown. Also, restaurants tend to be smaller in high-rent areas compared to similar standard restaurants in other parts of the town. There is an evidence that regular restaurants are mainly located in CBD area, to take advantage of high daytime traffic. The decision of renting a place in a commercial builiding may be leveraged two way- one by avoiding big cost of owning a place, and second by attracting employees from that particular builiding to have lunch there. 
+Smith also emphasizes the importance of zoning regulations the driving factor in restaurants locations in Kitchener-Waterloo.
+
+For example, [@mitchell1975some] analysed the structure of publicly-funded recreation places based on cetral place theory assumptions.
+
 
 There is little publically avaliable research on restaurants location. According to Smith, most of the previous research *... has been done under contract for particular restaurant franchises..*, and thus is unavaliable for academic researchers [@patterns_restaurants]. 
 
@@ -84,9 +113,6 @@ This trend creates opportunities in research. As new tools are developed, relyin
 
 
 Most of the practical studies that used spatial classification are standard classification algorithms, fit to spatial data. Some of the studies do not take into account spatial dimension. An example is a geological study of landslide probability made by [@goetz2015evaluating]. 
-
-
-
 
 
 Others do , however spatial information is assesed by a primitive method of using geographical coordinates in the model (... lasy?).
@@ -185,23 +211,6 @@ The solution was proposed by (...). He suggests that observations chosen to one 
 I have used similar approach. I have created (...) folds. To simplify the process of splitting the space, I have used Warsaw' districts as aggregating units. Each fold consists of 3-4 districts, as shown on map (...)
 
 The choice of districts to include in one fold was arbitrary, the main criterion was to ensure that folds have similar area and the districts inside share borders with each other.
-
-#### Dump 
-
-This process can negatively influence the predictions, but as the grid resolution is good enough, this probably will not have big effect on the results of analysis. 
-
-The way I approached this was through model estimation- more important factor is the one, on which basis one can make best prediction about presence of restaurants. 
-Because of the fact that in most grid cells the number of restaurants was 0 (~67%), I have decided to perform classification rather than regression. The target variable is then presence of at least one restaurant in given area. 
-
-
-
-
-
-
-
-
-
-
 
 
 
