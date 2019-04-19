@@ -2,19 +2,22 @@
 title: "Thesis"
 output: word_document
 bibliography: bib.bibtex
+link-citations: true
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-
+### Abstract
+### Introduction
+### Literature overview
 #### Business location studies
 
 The location dimension was neglected in mainstream economics for a long time. As Krugman said: *"How  did  the  mainstream  cope  with  spatial  issues?  By  ignoring  them"* [@krugman1997development]. However, some theories of location were developed through the years. First approaches in the stream of classical economy concentrated on industry and agricuture. The earliest theory concerning location is by von Thunen. (...) His model of agricultural land layed (?) foundations for later works. Theory of industrial location made by Weber (...) concentrated on transportation costs of raw materials and final products. According to the theory, entrepreneurs created their industrial sites in places where the cost of transportation was the lowest. 
 
 Later works of Walter Christaller should also be mentioned. He developed a central theory model (...), in which he tried to explain the location of cities and villages across the space. Similar to von Thunen model, a village has one function, that is to create space for exchange of goods produced somewhere else. This assumption was valid in pred- industrial era.
 
-Hotelling's linear city model (...) is on of classical game theory models. Every firm wants to achieve the best location and attract as many customers as possible. The novelty of this model is that firms take their competitors' locations into account. As a result, similar firms are getting very close to each other, and in their interest is to have similar product as the competitors. This phenomenon is visible in retail market, especially bars, restaurants and pharmacies (...). 
+Hotelling's linear city model (...) is on of classical game theory models. Every firm wants to achieve the best location and attract as many customers as possible. The onovelty of this model is that firms take their competitors' locations into account. As a result, similar firms are getting very close to each other, and in their interest is to have similar product as the competitors. This phenomenon is visible in retail market, especially bars, restaurants and pharmacies (...). 
 
 Hotelling's theory was then expanded by Salop (...). Main difference was that instead of a strainght line, the street along which businesses competed was a circle with no-end points. 
 
@@ -100,7 +103,7 @@ One is mainly concentrated on clustering tendencies in restaurants locations. As
 
 Early studies in the area of spatial phenomenas did not account for spatial dependence. The usage of OLS has been common. Later works accounted for spatial lag, however these models were still overly simplistic. In modern studies, more complex models were developed and are in use (...)
 
-Even though studies on spatial regression models are (...), there is a big gap in studies concerning development of spatial classification models. In a canonical book in terms of spatial econometrix, LeSage did not even mention classification task. There are only few publications dedicated to this area. In his study http://www.cs.sfu.ca/~ester/papers/KDD-2009-SpatialClassification.final.pdf (...) developed spatial classification algorithm based on the concept of Voronoi tasselation (...). In his work (https://pdfs.semanticscholar.org/c9e1/0cf4006690e6f3a3c05a151515d0c5a8ca6d.pdf) improved decision tree classification algorithm to take into account spatial relations. The main novelty of this study was implementation of this algorithm using GIS software-specific spatial predicates. This was to improve efficiency and velocity of model fitting and predictions. Also, some solutions were proposed to take into account the data of various types (lines, points, polygons). This algorithm is also capable of using information on different levels of aggregation and feed them into decision tree estimation.
+Even though studies on spatial regression models are (...), there is a big gap in studies concerning development of spatial classification models. In a canonical book in terms of spatial econometrix, LeSage did not even mention classification task. There are only few publications dedicated to this area. In his study http://www.ocs.sfu.ca/~ester/papers/KDD-2009-SpatialClassification.final.pdf (...) developed spatial classification algorithm based on the concept of Voronoi tasselation (...). In his work (https://pdfs.semanticscholar.org/c9e1/0cf4006690e6f3a3c05a151515d0c5a8ca6d.pdf) improved decision tree classification algorithm to take into account spatial relations. The main novelty of this study was implementation of this algorithm using GIS software-specific spatial predicates. This was to improve efficiency and velocity of model fitting and predictions. Also, some solutions were proposed to take into account the data of various types (lines, points, polygons). This algorithm is also capable of using information on different levels of aggregation and feed them into decision tree estimation.
 
 
 Area of advanced non-parametric and machine learning methods is rapidly growing in recent years. Algorithms like Gradient Boosted Models, Random Forest and Support Vacor Machines are state-of-the art solutions when it comes to various prediction tasks.  Second concern is usage of spatial dimension in 
@@ -109,26 +112,56 @@ These algorithms, however, are neglected, when it is important to understand spe
 
 However, because of the fact that complex algorithms cope very well in real-world tasks, efforts are made to create solutions for assesing process of algorithmic decision-making. Another reason for rapid development of Explainable Artificial Intelligence is companies' need to adjust to European GDPR regulation, specifically right to explanation of algorithm's decision (https://www.privacy-regulation.eu/en/r71.htm). Some of the most important frameworks and algorithms are local interpretable model-agnostic explanations [@lime], partial dependency plots [@friedman2001greedy] and model-agnostic variable importance assesment[@fisher2018all].
 
-This trend creates opportunities in research. As new tools are developed, relying only on linear models is getting less reasonable.
-
-
+Lots of phenomena in real world cannot be  explained by a linear or any other simple relationship. Thus, the usage of Machine Learning methods in various areas of research can be expected. Economics is a field in which a vast amount of parametric statistical analysis was introduced and applied.   
+ 
 Most of the practical studies that used spatial classification are standard classification algorithms, fit to spatial data. Some of the studies do not take into account spatial dimension. An example is a geological study of landslide probability made by [@goetz2015evaluating]. 
 
 
-Others do , however spatial information is assesed by a primitive method of using geographical coordinates in the model (... lasy?).
+Others do, however spatial information is assesed by a primitive method of using geographical coordinates in the model (... lasy?).
 
 
+[@kanevski2004environmental] Is one of such studies. It was based on environmental data, however methods developed in the paper can be extrapolated to other areas. A hybrid approach using classical geostatistical tools and 2 machine learning algorithms was used. Main advantage of this method over classic statistics framework is capability of taking into account complex, non-linear relationships. At the same time, the results are still easy to interpret compared to algorithms of which this method consists, that is Artificial Neural Network and Support Vector Machine  
+
+[@khan2002k] Develop an efficient spatial algorithm for classification. Similar to (...link), the main improvement of this study is making a already existing algorithm efficient for spatial datasets. In this approach, a problem of streaming the data and classification *on the fly* is explored. 
 
 
 However, the usage of Random Forest for spatial modeling is not widely populated. Various studies were conducted in natural sciences. (...) analyzed the usage of Random Forest in comparison with Multiple Linear Regression for prediction of carbon mapping in Amazon Forest. They showed that using spatial context with Random Forest improved explained variation by 16%. 
 
 Similarly, a (..) study, [@vceh2018estimating] used Ranom Forest and Multiple Regression for apartaments prices prediction. Using the first method, improvement in prediction measured by R^2 was 0.34. In this study, however, spatial dimension was not taken into account. 
-i
 
 
 
 
 
+
+### Dataset description
+
+
+In my study I have restricted the analysis to the Warsaw metropoly. The variables included in the dataset are:
+
+- Restaruants locations
+- Businesses locations
+- Population density
+- Bus stops locations
+- Roads loactions.
+
+These features come from various sources. Restaurants' locations were obtained from Zomato website. There were 2341 observations total, but due to incorrect addresses, 72 restaurants were excluded. Population density comes from 2011 GUS National Census (https://geo.stat.gov.pl/nsp-2011). The data about businesses was gathered from (...). Location of bus stops and roads was obtained using Open Street Map service. 
+
+Although restaurants, businesses and infrastructural features (bus stops and roads) are points data, population density is in a form of an 1km x 1km aggregated grid. Thus, to asses population influence on the presence of restaurants, it was neccesary to convert all variables to the same format. To do this, all variables were binned to a grid in the same resolution as population density data. 
+o
+The map of restaurants locations (...) shows that there exists high centrality. Also, in regions far from city centre it is visible that restaurants are located in proximity to the largest streets, some of which are exit roads. 
+
+Population and business presence are also highly concetrated in the city centre. 
+After binning the points data to a grid it can be seen that both restaurants and businesses locations distributions are highly skewed. Typical power law distribution is observed, with majority of values close to 0 and few observations with extreme values. The population density data is also highly right-skewed, but to a way lower extent than the other two variables. 
+
+
+As shown on the boxplots (...), the subsamples containig and not containing any restaurants are significantly different in terms of business and population locations. Average business count in a grid cell in which the restaurants was present was 116.62, while in regions without restaurants was only 14.53. Similarly, average population density in restaurants' regions was 5784.74, compared to 1613.98 in regions without restaurants presence. 
+The join-count statistic was performed on restaurants presence data. With p-value< 0.0001, there is evidence that spatial autocorrelation in target variable exists. This means that estimates using non-spatial modeling will be biased, and there is neccessity to take spatial dimension into account.
+
+
+
+#### References
+### Methods description
 #### Ogólny opis zadania
 Hipotezy
 
@@ -136,15 +169,54 @@ The goal of this study is to find out what are main factors that drive restaurat
 
 To asses thoroughly the importance of the to factors stated above, I have also included other variables of interest, that can also indirectly influence the restaurants locations. These are proximity of bus stops and total length of roads. These two can be seen as measure of how well is the potential location connected to other parts of the city. 
 
+##### Variable importance
+
+
+
+[@ishwaran2007variable] Provide a theoretical assesment of variable importance measures concerning binary regression trees and Random Forest. 
+
+[@louppe2013understanding] Is a large extension of work of Ishwaran. The study shows that Mean Decrease in Impurity, a standard alogirthm in Random Forest assesment, is a reliable source of information about the importance of variables. Specifically, the authors prove that the algorithm satisfies basic requirement for variable importance method, that is *"[Variable importance] is equal to zero if and only if the variable is irrelevant and it depends only on therelevant variables"*.
+
+[@strobl2007bias] Assess the random forest-based variable importance measurements. They show that some characteristics of independent variables are favoured by an algorithm, and thus a suboptimal subset of features is chosen in the training process. This becomes an issue when there is a mix of categorical and continous features, or when the nominal predictors vary in the number of categories. The authors propose an improved version of random forest algorithm to mitigate that problem.
+
+[@archer2008empirical] Provide a mean decrease in impurity measure empirical assesment. They show that the measure is reliable assesment of the most important variable in the model. The study is focused on a specific problem, that is gene expression measurement, however the underlying data is of specific type, that is *"...predictor variables are standardized, continuous, and possibly highly correlated .."*. Thus, one can conclude about the possibility of using that method in other areas of study.
+
+[@gromping2009variable] Show a comparison of variable importance assesment in a regression task by two algorithms, Random Forest and Linear Regression.
+
+
 One broad class of assesing importance of variables ... is through using modeling. This way it is possible to asses influence on target variable in a complex way to mimic true relationships in the data. Also these are non-parametric methods that do not require any assumptions about the underlying process (normal distributions etc.). Fulfilling these requirements are hard in real-world people' decission processes, as the decision criteria are usually way more complex. 
-
-
-
-Variable importance
 
 Variable importance in context of modeling is defined as measure to what extent is target variable dependent on considered variable. In the case of measuring influence of business and population location on presence f restaurants, variable importance can be thought of as a measure of that influence.
 
+[...] provide an extensive overview of existing variable importance measures. As they state, *"... variable importance analysis (VIA) techniqueswere developed independently in many disciplines"*. 
+
+[@calle2010letter] Provided a comparison of two Random-Forest-specific variable importance measures- Mean Decrease Accuracy and Mean Decrease Gini. They show that the first measure is highly sensitive to small perturbations in the dataset and generally should be used with caution. They prove that measure based on Gini coefficient is much more robust. 
+
+[@janitza2013auc] Introduce a Area-Under-Curve-based variable importance for using in random forest setttings. They show that the method outperforms the two standard variable importance measures in case of highly imbalanced datasets. The results obtained in balanced classification problems are similar with all 3 methods. 
+
+
+
+
 #### Opis 3 metod
+#### Spatial weights matrix
+As join-count analysis on presence of restaurants shows that there exists poistive spatial autocorrelation, sopatial dimension was taken into account. Neighbourhood was defined with queen criterion, which means that two areas are neighbours if they share at least on edge or vartice. For each variable (including target variable), its spatial equivalent defined as sum of this variable across neighbours was computed. This process is similar to using spatial weights matrix in Geographically Weighted Regression. The reason to include spatial dimension explicitly by adding new variables to the model is due to specification of implementation of modeling algorithms in R software. Aspecially in more advanced models (like Random Forest), adding spatial weights matrix would require rewriting the whole method. 
+
+#### Cross validation 
+
+Good practice for estimating machine mearning models is using cross-validation. However, this procedure assumes that subsequent folds are independent from each other. For spatial data this posesses a problem, as choosing completely random observations could lead to leakage of information from other folds. 
+
+The solution was proposed by (...). He suggests that observations chosen to one fold should be densely located to minimise leakage of information from other folds. 
+
+I have used similar approach. I have created (...) folds. To simplify the process of splitting the space, I have used Warsaw' districts as aggregating units. Each fold consists of 3-4 districts, as shown on map (...)
+
+The choice of districts to include in one fold was arbitrary, the main criterion was to ensure that folds have similar area and the districts inside share borders with each other.
+
+
+
+
+
+### Results
+
 In my work I have tried 3 methods to asses whether these predictiors are imporant.
 
 Random Forest is a long-established model in classification tasks.
@@ -174,46 +246,3 @@ This method is a improvement compared to simple AUC estimation because it enable
 
 
 
-#### Dataset description
-
-
-In my study I have restricted the analysis to the Warsaw metropoly. The variables included in the dataset are:
-
-- Restaruants locations
-- Businesses locations
-- Population density
-- Bus stops locations
-- Roads loactions.
-
-These features come from various sources. Restaurants' locations were obtained from Zomato website. There were 2341 observations total, but due to incorrect addresses, 72 restaurants were excluded. Population density comes from 2011 GUS National Census (https://geo.stat.gov.pl/nsp-2011). The data about businesses was gathered from (...). Location of bus stops and roads was obtained using Open Street Map service. 
-
-Although restaurants, businesses and infrastructural features (bus stops and roads) are points data, population density is in a form of an 1km x 1km aggregated grid. Thus, to asses population influence on the presence of restaurants, it was neccesary to convert all variables to the same format. To do this, all variables were binned to a grid in the same resolution as population density data. 
-
-The map of restaurants locations (...) shows that there exists high centrality. Also, in regions far from city centre it is visible that restaurants are located in proximity to the largest streets, some of which are exit roads. 
-
-Population and business presence are also highly concetrated in the city centre. 
-After binning the points data to a grid it can be seen that both restaurants and businesses locations distributions are highly skewed. Typical power law distribution is observed, with majority of values close to 0 and few observations with extreme values. The population density data is also highly right-skewed, but to a way lower extent than the other two variables. 
-
-
-As shown on the boxplots (...), the subsamples containig and not containing any restaurants are significantly different in terms of business and population locations. Average business count in a grid cell in which the restaurants was present was 116.62, while in regions without restaurants was only 14.53. Similarly, average population density in restaurants' regions was 5784.74, compared to 1613.98 in regions without restaurants presence. 
-The join-count statistic was performed on restaurants presence data. With p-value< 0.0001, there is evidence that spatial autocorrelation in target variable exists. This means that estimates using non-spatial modeling will be biased, and there is neccessity to take spatial dimension into account.
-
-
-#### Spatial weights matrix
-As join-count analysis on presence of restaurants shows that there exists poistive spatial autocorrelation, spatial dimension was taken into account. Neighbourhood was defined with queen criterion, which means that two areas are neighbours if they share at least on edge or vartice. For each variable (including target variable), its spatial equivalent defined as sum of this variable across neighbours was computed. This process is similar to using spatial weights matrix in Geographically Weighted Regression. The reason to include spatial dimension explicitly by adding new variables to the model is due to specification of implementation of modeling algorithms in R software. Aspecially in more advanced models (like Random Forest), adding spatial weights matrix would require rewriting the whole method. 
-
-#### Cross validation 
-
-Good practice for estimating machine mearning models is using cross-validation. However, this procedure assumes that subsequent folds are independent from each other. For spatial data this posesses a problem, as choosing completely random observations could lead to leakage of information from other folds. 
-
-The solution was proposed by (...). He suggests that observations chosen to one fold should be densely located to minimise leakage of information from other folds. 
-
-I have used similar approach. I have created (...) folds. To simplify the process of splitting the space, I have used Warsaw' districts as aggregating units. Each fold consists of 3-4 districts, as shown on map (...)
-
-The choice of districts to include in one fold was arbitrary, the main criterion was to ensure that folds have similar area and the districts inside share borders with each other.
-
-
-
-
-
-#### References
