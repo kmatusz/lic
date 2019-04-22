@@ -194,11 +194,29 @@ Variable importance in context of modeling is defined as measure to what extent 
 
 [@janitza2013auc] Introduce a Area-Under-Curve-based variable importance for using in random forest setttings. They show that the method outperforms the two standard variable importance measures in case of highly imbalanced datasets. The results obtained in balanced classification problems are similar with all 3 methods. 
 
+#### Opis Logistic Regression
+
+The research done on the variable importance in logistic regression is not particularly broad. The existing works are only extensions of VI measures in the setting of ordinary least squares. Moreover, there is no dominating method among researchers, as it is in Mean Decrease Impurity in Random Forest setting. However, some measures have been proposed. 
+
+[@azen2009using] Extended a framework of dominance analysis previously developed for linear regression by [@budescu1993dominance]. 
+
+[@tonidandel2010determining] Use a concept of Relative Weights also firstly developed as a OLS tool.
+
+#### MCR
+
+(...) Provide an algorithm for assesing variable importance called *Model Class Reliance*. Its main advantage is that it is a wrapper over existing modeling tools, and thus it is a model-agnostic algorithm. This leads to another important property, that is, one can easily compare the variable importances of two or more algorithms in a meaningful way. Also, a advantage compared to other metrics is that there is no need to fit the model to the data more thatn once. This is especially important in big  datasets with many observations and variables, where model training alone, not mention cross-validation procedure, can be a resource consuming task.
+
+The inner wrkings of the algorithms is as follows: first, the model is fit on all variables and a goodness-of-fit measure (AUC for example) is checked. Then, one independent variable is randomly shuffled and the goodness-of-fit is measured using perturbed variable. The process is the repeated for each variable in the dataset. The variable importances can be perceived as the difference between the goodness-of-fit of original dataset and the datasets with perturbed one variable. 
+
+In addition, a model in which a dependent (y) variable is shuffled serves as a lower-bound of performance.
+
+The algorithm has been implemented as a part of an R package called DALEX. It is created as a comprehensive set of methods to explain blck-box models using different approaches.
 
 
 
 #### Opis 3 metod
 #### Spatial weights matrix
+
 As join-count analysis on presence of restaurants shows that there exists poistive spatial autocorrelation, sopatial dimension was taken into account. Neighbourhood was defined with queen criterion, which means that two areas are neighbours if they share at least on edge or vartice. For each variable (including target variable), its spatial equivalent defined as sum of this variable across neighbours was computed. This process is similar to using spatial weights matrix in Geographically Weighted Regression. The reason to include spatial dimension explicitly by adding new variables to the model is due to specification of implementation of modeling algorithms in R software. Aspecially in more advanced models (like Random Forest), adding spatial weights matrix would require rewriting the whole method. 
 
 #### Cross validation 
@@ -211,23 +229,27 @@ I have used similar approach. I have created (...) folds. To simplify the proces
 
 The choice of districts to include in one fold was arbitrary, the main criterion was to ensure that folds have similar area and the districts inside share borders with each other.
 
+#### Ogólny opis
+
+Some calsses of models have a established method of assesing variable importance. 
 
 
 
 
-### Results
-
-In my work I have tried 3 methods to asses whether these predictiors are imporant.
-
-Random Forest is a long-established model in classification tasks.
-During model training, various decision trees are created. Each decision tree is fitted using 1. different subset of observations (obtained from full data set using bootstraping) and 2. different subset of features (variables). This way model overfitting compared to classic decision tree is largely reduced. 
+In my work I have tried 2 methods to asses whether these predictiors are imporant.
 
 I have chosen random forest for two reasons. First, it is a well established model performing well in various prediction tasks (...). Secondly, assesing variable importance is straightforward and model dependent. 
+
+I have estimated the model on training data described in section (...). I have used *caret* package as wrapper over randomForest method. In each cross validation phase I have tried different number of predictiors used during each tree fitting. Final accuracy of the model was assesed using AUC criterion, as the target variable is slightly imbalanced (In the training set the share of observations without restaurant is ~67%).
 
 Variable importance in RF models was defined in a introducing publication of this model (...). At each of the splits in training phase, the variable on which to make a split is chosen using Gini Impurity criterion. 
 Importance of given variable is defined as sum of decrease in Gini Impurity in all the splits, in which the variable was used.  
 
-I have estimated the model on training data described in section (...). I have used *caret* package as wrapper over randomForest method. In each cross validation phase I have tried different number of predictiors used during each tree fitting. Final accuracy of the model was assesed using AUC criterion, as the target variable is slightly imbalanced (In the training set the share of observations without restaurant is ~67%).
+
+Random Forest is a long-established model in classification tasks.
+During model training, various decision trees are created. Each decision tree is fitted using 1. different subset of observations (obtained from full data set using bootstraping) and 2. different subset of features (variables). This way model overfitting compared to classic decision tree is largely reduced. 
+
+
 
 
 In addition to a model with all variables, 3 other Random Forest models were fitted. First one did not include information about business locations. This means that 2 variables were ommited, business count in the area and business count in surrounding areas (containing spatial dimension). Second model was similar, but did not include information about population density. Similarly, 2 variables were ommited.
@@ -244,5 +266,5 @@ Finally, the last method to asses variable performance is a modified version of 
 This method is a improvement compared to simple AUC estimation because it enables to perform statistical inferences on the results. For example, knowing the vector of AUC estimates for two models, one can use t-test to asses equality of estimates between given models, and thus infer about significance of the difference. 
 
 
-
+### Results
 
