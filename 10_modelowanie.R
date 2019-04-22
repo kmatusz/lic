@@ -52,7 +52,7 @@ grid %>%
 
 st_intersects(grid_with_neigbours %>% st_centroid(), map_contour) %>%
   map_dbl(function(x) ifelse(length(x)==0, NA, x)) %>%
-  as.tibble() %>%
+  tibble::enframe(name = NULL) %>%
   left_join(map_contour %>% 
               st_set_geometry(NULL) %>% 
               mutate(value = as.numeric(rownames(.)))) %>% 
@@ -147,7 +147,7 @@ tr_cont_rf<- trainControl(method="cv",
                        verboseIter = T)
 
 
-# Metoda 1.- Random Forest ze wszystkimi zmiennymi i porównanie varImp----
+# Random Forest ze wszystkimi zmiennymi ----
 
 model_rf_all<-train(if_rest~. , data= training,
                     metric="ROC",
@@ -156,33 +156,9 @@ model_rf_all<-train(if_rest~. , data= training,
                     tuneGrid=rf_grid,
                     method="rf")
 
-
-#' Tabelka z varimp jako mean decrease gini
-model_rf_all$finalModel %>%
-  randomForest::importance() %>%
-  as_tibble(rownames = "Variable") %>%
-  mutate(rel_imp=MeanDecreaseGini/77.1*100) %>%
-  select(1,3) %>%
-  arrange(-rel_imp) -> metoda1_varimp_table
-
-metoda1_varimp_table
-
-model_rf_all$results
-# Metoda 2- po 4 modele (wszystkie zmienne, bez tot, bez biznes, bez obu)
-
 #	Logistic regression ze wszystkimi zmiennymi ----
 
 model_lr_all<-train(if_rest~. , data= training,
-              metric="ROC",
-              #importance = "impurity",
-              trControl=tr_cont, 
-              method="glm", 
-              family="binomial")
-
-
-#	Logistic regression bez biznes_count ----
-
-model_lr_bez_biznes<-train(if_rest~.-biznes_count -n_biznes_count_sum , data= training,
                     metric="ROC",
                     #importance = "impurity",
                     trControl=tr_cont, 
@@ -190,136 +166,85 @@ model_lr_bez_biznes<-train(if_rest~.-biznes_count -n_biznes_count_sum , data= tr
                     family="binomial")
 
 
-#	Logistic regression bez TOT ----
 
-model_lr_bez_tot<-train(if_rest~.-TOT-n_tot_sum , data= training,
-                           metric="ROC",
-                           #importance = "impurity",
-                           trControl=tr_cont, 
-                           method="glm", 
-                           family="binomial")
+#' Tabelka z varimp dla RF jako mean decrease gini
+model_rf_all$finalModel %>%
+  randomForest::importance() %>%
+  as_tibble(rownames = "Variable") %>%
+  mutate(rel_imp=MeanDecreaseGini) %>%
+  select(1,3) %>%
+  arrange(-rel_imp) -> metoda1_varimp_table
 
-#	Logistic regression bez biznes_count I bez TOT ----
-
-model_lr_bez_biznes_tot<-train(if_rest~.-TOT-n_tot_sum-biznes_count -n_biznes_count_sum , data= training,
-                               metric="ROC",
-                               #importance = "impurity",
-                               trControl=tr_cont, 
-                               method="glm", 
-                               family="binomial")
+metoda1_varimp_table
 
 
-# RF ze wszystkimi-powyżej
-#	RF bez biznes_count ----
 
-model_rf_bez_biznes<-train(if_rest~.-biznes_count -n_biznes_count_sum , data= training,
-                    metric="ROC",
-                    #importance = "impurity",
-                    trControl=tr_cont, 
-                    tuneGrid=rf_grid,
-                    method="rf")
+rf_model <- model_rf_all
+lr_model <- model_lr_all
 
-#	RF bez TOT ----
 
-model_rf_bez_tot<-train(if_rest~.-TOT-n_tot_sum , data= training,
-                           metric="ROC",
-                           #importance = "impurity",
-                           trControl=tr_cont,
-                        tuneGrid=rf_grid,
-                           method="rf")
+library(DALEX)
+explainer_rf <- DALEX::explain(rf_model, label = "Random Forest", 
+                                     data = training, y = training$if_rest)
+
+explainer_lr <- DALEX::explain(lr_model, label = "Logistic Regression", 
+                               data = training, y = training$if_rest)
 
 
 
 
-#	RF bez biznes_count I bez TOT ----
+rf_imp <-variable_importance(explainer_rf, loss_function = pROC::auc)
+rf_imp %>% arrange(-dropout_loss)
 
-model_rf_bez_biznes_tot<-train(if_rest~. -TOT-n_tot_sum-biznes_count -n_biznes_count_sum, data= training,
-                        metric="ROC",
-                        #importance = "impurity",
-                        trControl=tr_cont, 
-                        tuneGrid=rf_grid,
-                        method="rf")
-
-# Porównanie wszystkich RF ----
+lr_imp <-variable_importance(explainer_lr, loss_function = pROC::auc, n_sample = -1)
+lr_imp %>% arrange(-dropout_loss)
 
 
-models_names_list_rf <- list(
-                          "model_rf_all",
-                          "model_rf_bez_biznes",
-                          "model_rf_bez_tot",
-                          "model_rf_bez_biznes_tot"
-                          
-)
+columns_mapping <- 
+  tribble(
+    ~old, ~new,
+    "^TOT", "Population",
+    "^rest_count", "Restaurants",
+    "^biznes_count", "Businesses",
+    "^bus_count", "Bus stops",
+    "^roads", "Roads",
+    "^if_rest", "If restaurant",
+    "^n_bus_count_sum", "Bus stops in heighbouring areas",
+    "^n_roads_sum", "Roads in heighbouring areas",
+    "^n_tot_sum", "Population in heighbouring areas",
+    "^n_biznes_count_sum", "Businesses in heighbouring areas",
+    "^_full_model_", "Full model performance",
+    "^n_if_rest_sum", "If restaurant in neighbouring areas"
+    
+  )
 
-models_names_list_rf %>%
-  map(function(x){
-    eval(parse(text=x))
-  }) -> models_expr_rf
+mapping <- columns_mapping$new
+names(mapping) <- columns_mapping$old
 
-names(models_expr_rf) <- models_names_list_rf
-
-# Metoda 2
-models_expr_rf %>% map(function(x) x$results) -> rf_results_table
-
-models_expr_rf %>% map(function(x) {
-  x %>%
-    predict(test, type = "prob") %>%
-    .[,2] %>%
-    prediction(test$if_rest) %>%
-    performance("auc") %>%
-    .@y.values
-}) %>%
-  flatten() %>% 
-  map_df(function(x) x) %>% 
-  gather("model", "value",1:4)%>% 
-  mutate(
-         model = str_sub(model, start = 10)) -> rf_models_auc_test
+ reorder(var_imp_to_plot$variable,
+                                var_imp_to_plot$dropout_loss,
+                                mean)
 
 
 
-# Porównanie wszystkich LR ----
 
-
-models_names_list_lr <- list(
-  "model_lr_all",
-  "model_lr_bez_biznes",
-  "model_lr_bez_tot",
-  "model_lr_bez_biznes_tot"
-  
-)
-
-models_names_list_lr %>%
-  map(function(x){
-    eval(parse(text=x))
-  }) -> models_expr_lr
-
-names(models_expr_lr) <- models_names_list_lr
-
-# Metoda 2
-models_expr_lr %>% map(function(x) x$results) -> lr_results_table
-
-models_expr_lr %>% map(function(x) {
-  x %>%
-    predict(test, type = "prob") %>%
-    .[,2] %>%
-    prediction(test$if_rest) %>%
-    performance("auc") %>%
-    .@y.values
-}) %>%
-  flatten() %>% 
-  map_df(function(x) x) %>% 
-  gather("model", "value",1:4)%>% 
-  mutate(
-    model = str_sub(model, start = 10)) -> lr_models_auc_test
-
-models_expr_lr %>% map(function(x) x$finalModel$coefficients) -> lr_models_coefs
-
-
-
+lr_imp %>% 
+  rbind(rf_imp) %>%
+  mutate(variable = str_replace_all(variable, mapping)) %>%
+  filter(!(variable %in%  c("_baseline_", "If restaurant"))) -> var_imp_to_plot
+ 
+var_imp_to_plot %>%
+  mutate(variable=reorder(variable,
+                          dropout_loss,
+                          mean)) %>%
+#  mutate(label = str_replace_all(label, c("lr"= "Logistic Regression", "rf"= "Random Forest")))
+  ggplot(aes(x=variable, y=dropout_loss)) +
+  geom_col()+
+  facet_grid(rows =vars(label))+
+  coord_flip()+ 
+  theme_minimal()
 
 # Porównywanie modeli ----
-deparse(substitute(model_lr_bez_biznes))
-
 
 eval(parse(text=deparse(substitute(model_lr_bez_biznes))))
 
@@ -344,17 +269,10 @@ models_names_list %>%
 
 names(models_expr) <- models_names_list
 
-# Porównywanie modeli- caret resample ----
-resamps_all <- resamples(models_expr[1:8])
-ggplot(resamps_all)  
-  
-resamps_rf <- resamples(models_expr[c(2, 5, 6, 8)])
-ggplot(resamps_rf)  
+# Porównanie modeli - varImp dla Random Forest ----
+varimp_plot_rf <- model_rf_all %>% varImp() %>% plot()
+varimp_plot_rf
 
-varImp(model_rf_all) %>% plot()
-
-model_rf_all
-model_rf_bez_biznes
 
 # Porównanie modeli- AUC na zbiorze testowym ----
 
@@ -376,9 +294,6 @@ models_expr %>% map(function(x) {
 models_auc_test %>% spread(key=model_type, value= value) %>%
   arrange(rf) 
 
-# Porównanie modeli - varImp dla Random Forest ----
-varimp_plot_rf <- model_rf_all %>% varImp() %>% plot()
-varimp_plot_rf
 
 
 # zapis ----

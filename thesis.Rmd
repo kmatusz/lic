@@ -10,6 +10,19 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 ### Abstract
 ### Introduction
+
+
+
+Choosing a optimal location for any business is a difficult decision that every entrepreneur faces. As studies show, the location has potentially tremendous effect on revenue. This is particularly important in restaurant industry, where potential customers can be easily tempted by attractive-looking interior. A convenient location is one of the key factors that drive a decision to purchase a meal. 
+
+I provide a detailed study of these two factors. 
+
+My approach was to create a model explaining restuarants locations using data about population and businesses densities and then assess Variable Importance for each variable. 
+
+Modeling is a widely acclaimed method for inference when the relationships are highly complicated and assuming a specific type of data model is impossible. Recent advances in the field of Explainable Artificial Intelligence enable researchers to draw conclusions from black-box models, which was never possible before, at least not to such extent.
+
+Warsaw is still an immature market when it comes to restaurants. The growth of the whole sector is steady and big, and every week new restaurants are opened. As the competitiveness of the market is bigger and bigger, restaurators should seek for new ways to stand out of the crowd and use data-driven decision making. Results of this study can help understand what creates the biggest 
+
 ### Literature overview
 #### Business location studies
 
@@ -214,6 +227,7 @@ The algorithm has been implemented as a part of an R package called DALEX. It is
 
 
 
+
 #### Opis 3 metod
 #### Spatial weights matrix
 
@@ -267,4 +281,12 @@ This method is a improvement compared to simple AUC estimation because it enable
 
 
 ### Results
+
+There are 3 variables that were consistently chosen in used methods as the most important: number of businesses in the area, roads length in the area and a variable indicating if there is at least one restaurant in the neighbouring areas. One of the variables chosen for this study for more careful analysis dominated the other, that is population density. This means that for opening and running a restaruant much more important factor is if there are 
+
+Spatial autocorrelation also plays an important role in the restaurants location. This is in consistency with the works of (...) who all indicated that restaurants hava a strong clustering tendency. 
+
+
+
+
 
