@@ -11,7 +11,12 @@ knitr::opts_chunk$set(echo = TRUE)
 ### Abstract
 ### Introduction
 
+There are several novelties to this study. First, it uses a novel approach to asssess imporatnce of various factors infuluencing location studies. Algorithmic data modeling, in particular using Random Forest model, is not widespread among economists. 
+Second, there is lack of a detailed study concerning Warsaw restaurants from quantitative perspective. 
 
+The specifics of restaurant industry is different in each city, thus extrapolating the results from other cities on Warsaw should be done carefully. 
+
+Also, there are just a few papers addressing restaurants location specifics in particular. Most of the existing works are also as old as 40 years, and thus are possibly outdated due to transformations in the industry.
 
 Choosing a optimal location for any business is a difficult decision that every entrepreneur faces. As studies show, the location has potentially tremendous effect on revenue. This is particularly important in restaurant industry, where potential customers can be easily tempted by attractive-looking interior. A convenient location is one of the key factors that drive a decision to purchase a meal. 
 
@@ -26,51 +31,30 @@ Warsaw is still an immature market when it comes to restaurants. The growth of t
 ### Literature overview
 #### Business location studies
 
-The location dimension was neglected in mainstream economics for a long time. As Krugman said: *"How  did  the  mainstream  cope  with  spatial  issues?  By  ignoring  them"* [@krugman1997development]. However, some theories of location were developed through the years. First approaches in the stream of classical economy concentrated on industry and agricuture. The earliest theory concerning location is by von Thunen. (...) His model of agricultural land layed (?) foundations for later works. Theory of industrial location made by Weber (...) concentrated on transportation costs of raw materials and final products. According to the theory, entrepreneurs created their industrial sites in places where the cost of transportation was the lowest. 
+The location dimension was neglected in mainstream economics for a long time. As Krugman said: *"How  did  the  mainstream  cope  with  spatial  issues?  By  ignoring  them."* [@krugman1997development]. Despite that, various theories of location have been developed through the years. First approaches in the stream of classical economy concentrated on industry and agricuture. The earliest theory concerning location is by von Thunen [@von1875isolirte]. His model of agricultural land layed foundations for later works. Theory of industrial location made by Weber [@weber1929theory] concentrated on transportation costs of raw materials and final products. According to the theory, entrepreneurs create their industrial sites in places where the cost of transportation was the lowest. 
 
-Later works of Walter Christaller should also be mentioned. He developed a central theory model (...), in which he tried to explain the location of cities and villages across the space. Similar to von Thunen model, a village has one function, that is to create space for exchange of goods produced somewhere else. This assumption was valid in pred- industrial era.
+Works of Walter Christaller should also be mentioned. He developed a central theory model, in which he tried to explain the location of cities and villages across the space. Similar to von Thunen model, a village has one function, that is to create space for exchange of goods produced somewhere else. 
 
-Hotelling's linear city model (...) is on of classical game theory models. Every firm wants to achieve the best location and attract as many customers as possible. The onovelty of this model is that firms take their competitors' locations into account. As a result, similar firms are getting very close to each other, and in their interest is to have similar product as the competitors. This phenomenon is visible in retail market, especially bars, restaurants and pharmacies (...). 
+Hotelling's linear city model [@hotelling1990stability] is on of classical game theory models. Every firm wants to achieve the best location and attract as many customers as possible. The novelty of this model is that firms take their competitors' locations into account. As a result, similar firms are getting very close to each other, and in their interest is to have similar product to the competitors'. This phenomenon is visible in retail market, especially bars, restaurants and pharmacies (...). 
 
-Hotelling's theory was then expanded by Salop (...). Main difference was that instead of a strainght line, the street along which businesses competed was a circle with no-end points. 
+These few models layed foundations for later empirical works in the field of location. The factors for choosing a site for a factory and service-based businesses are fundamentally different, and thus are usually studied separately. For example, in industry transportation costs of raw materials and final products must be taken under serious consideration. Avaliability of a big pool of skilled workforce specialised in a particular industry plays also an important role. On the other side, the demand for retail stores and services is often location-bound and is bigger in the cities. 
 
-*empirycznie czynniki wpływające na industry i retail*
+[@van1999location] notice that not only sector in which a business operates matters, but also small and big businesses should be treated separately in location studies. Motivations and avaliable resources for these two segments vary considerably. Their study focuses on smaller businesses and is rather qualitative in nature. They claim that SMEs location decision is a short-term and is not a result of a extensive consideration. Also, the smaller the business, the bigger chance is that it will be established in proximity of its owners home.
 
+Restaurant industry shares some of the specifics with retail industry in general, and thus studies in this broader sector are analyzed. In an early study, [@rolph1932population] showed that retail stores location is highly correlated with population density, average income in the area and other factors. This study strives to find factors that particular area's entrepreneurial landscape consists of and thus determine businesses locations.
 
-[@lee1976locational] Hypothesised about a relationship between retail stores density and various socio-economic factors in the area. The data was aggregated to a grid and statistical analysis was performed. It was shown that population density does not have a significant influence on stores locations. It was suggested that spatial agglomertion may be a more important factor when making a decision about opening a store. 
+Second stream of studies concentrates on spatial agglomaration of businesses. However, it should be stated that these two approaches are highly dependent on each other. Spatial clustering can occur from two reasons. One is presence of similar businesses in the area (a example of Hotelling's law). The second one is because there are good conditions for particular business types in the area. Thus, spatial clustering is present, but is driven by other factors than competitor's location.
 
-In an early study, [@rolph1932population] Showed that retail stores location is highly correlated with population density, average income in the area and other factors.
+There is a possible reason why taking account of aglomeration phenomenon is widely present in location studies. Data concerning location is usually very easy to accuire, for instance compared to sales data in different location. No matter how valuable insights one would gather from such information, data of such kind is usually unavaliable to independent researchers. 
 
-[@esteban2006business] Used questionaires sent directly to randomly selected retail companies in the area to acquire the dat about performance of businesses. They showed nonlinear relationship between business performance and the area it resides in. Firms in high and low businesses density areas performed the worst compared to places in which number of businesses was moderate.
-
-The factors for choosing a site for a facotry and service-based businesses are fundamentally different. For example, in industry transportation costs of raw materials and final products must be taken under serious consideration. Avaliability of a big pool of skilled workforce specialised in a particular industry plays also an important role. (...) analyze an area of the Silicon Valley, USA in context of spatial clustering.
-
-In empirical research, there are two main approaches to estimating business location. One stream of studies concentrates on spatial agglomaration of businesses. It has its roots in Hotelling's linear city theory. Second stream of studies strives to find factors influencing businesses locations. The reasoning here is that businesses 
-
-However it should be stated that these two approaches are highly dependent on each other. The reason of spatial clustering is twofold- one is that (...). However, spatial clustering occurs also because there are good conditions for particular business types in the area. 
-
-There is also another groundbound reason why taking account of aglomeration phenomenon is so evident in research studies. Data concerning location is usually very easy to accuire, for instance compared to sales data in different location. No matter how valuable insights one would gather from such information, data of such kind is usually unavaliable to independent researchers. It can be hypothesized that such analyses are made in bigger companies, but the results are proprietary.
-
-
-
-[@dube2016location] Showed that, in accordance with the classical location theories, businesses in primary sectors tend to be isolated and far from agglomeration center. In contrast, highly advanced manufactuirng and services showed high clustering tendency. 
-
-
-[@van1999location] Show that small and big businesses should be treated separately in location studies, because motivations and avaliable resources vary considerably. Their study focuses on smaller businesses and is rather qualitative in nature. They claim that SMEs location decision is a short-term and is not a result of a extensive consideration. Also, the smaller the business, the bigger chance is that it will be established in proximity of its owners home.
-
+Contrary to [@rolph1932population], [@lee1976locational] tried to prove that population density does not have a significant influence on stores locations. They suggested that spatial agglomertion may be a more important factor  than various socio-economic factors in the area, when making a decision about opening a store. [@dube2016location] showed that, in accordance with the classical location theories, businesses in primary sectors tend to be isolated and far from agglomeration center. In contrast, highly advanced manufactuirng and services showed high clustering tendency in the cities. [@esteban2006business] Used questionaires sent directly to randomly selected retail companies in the area to acquire the data about performance of businesses. They showed nonlinear relationship between business performance and the area it resides in. Firms in high and low businesses density areas performed the worst compared to places in which number of businesses was moderate.
 
 #### Restaurants location studies 
 
-As all of the above authors stated, the results obtained in one city or region should be carefully extrapolated to other areas. Each city has its own specifics, not to mention country's overall culture and its inhabitants habits.
+There is little publically avaliable research on restaurants location. According to Smith, most of the previous research *"... has been done under contract for particular restaurant franchises.."*, and thus is unavaliable for academic researchers [@patterns_restaurants]. 
 
-[@gluchowski2017rynek] Provide an overview of Warsaw restaurants market. They show that the number of restaurants is constantly growing, and Warsaw is a city with the most restaruants in Poland. 3 groups of customers visiting restaurants in Warsaw are shown- people doing this for entertainment purposes (eg. meeting with friends or experiencing new cuisines), tourists visiting Warsaw, and people deciding to take eat outside during the workday, reather than preparing meal at home.  
-
-[@http://dspace.uni.lodz.pl:8080/xmlui/bitstream/handle/11089/17305/ROZW%C3%93J%20TURYSTYKI%20KULINARNEJ.pdf?sequence=1&isAllowed=y] assess the rise and development of *cuilinary tourism*. They claim that a behaviour of traveling to c
-They provide short overview of restaurants history in modern, post-communism era in Poland, and Warsaw in particular.
-
-
-From the above studies concerning culinary business it can be stated that until now Poles were not much attracted to traditional cuisine. However, the movement of using traditional, long-forgotten polish recipes and ingredients is on the rise. 
-
+Restaurants locations can be analyzed from both supply and demand site. Despite the fact that restaurant location decision is made by the owner in the short term, it is consumer's force and decisions that influence whether particular restaurant will withstand the test of time.
+Consumer needs and habits are constantly changing and new behavioural patterns can be observed. 
 
 One common approach to asserting customers choices in restaurants is using a multi-attribute value theory. In this framework, customers have a set of attributes that they percievie as important for making a decision. These attributes and their personal values are then compared against the attributes of a business. If the assesment is positive, then a purchase is made. This apprach was used in a study by [@auty1992consumer], who use segmentation framework to analyze restaurants choices among customers. Various studies have been made and all of them show that importance of various attributes is highly consumer -dependent.
 
@@ -78,12 +62,7 @@ One common approach to asserting customers choices in restaurants is using a mul
   
 [@sadahiro2000pdf] Analyzed retail location data in Yokohama, Japan using a probability density function estimated. 
 
-Restaurants locations can be analyzed from both supply and demand site. Despite the fact that restaurant location decision is made by the owner in the short term, it is consumer's force and decisions that influence whether particular restaurant will withstand the test of time.
-Consumer needs and habits are constantly changing and new behavioural patterns can be observed. 
-
 [@ayatac2017location] Showed how restaurants locations reflected Istanbul's cultural transformation and opening for Western culture. 
-
-
 
 
 
@@ -91,14 +70,6 @@ Consumer needs and habits are constantly changing and new behavioural patterns c
 Smith also emphasizes the importance of zoning regulations the driving factor in restaurants locations in Kitchener-Waterloo.
 
 For example, [@mitchell1975some] analysed the structure of publicly-funded recreation places based on cetral place theory assumptions.
-
-
-There is little publically avaliable research on restaurants location. According to Smith, most of the previous research *... has been done under contract for particular restaurant franchises..*, and thus is unavaliable for academic researchers [@patterns_restaurants]. 
-
-Retail location theory is particularly broad. .....
-
-There are 2 main streams of restaruants locations studies. 
-One is mainly concentrated on clustering tendencies in restaurants locations. As proven in numerous studies, (...), various spatial phenomena have been shown to cluster well. This is particularly apparent in locations of some bussinesses categories, as shown by (...). 
 
 [@pillsbury1987hamburger] Showed that restaurants locations have high clustering tendency. As claimed, *Today, virtually no new restaurant is found outside a cluster of its competitors*.  Moreover, restaurants clustering criteria used (socio-economics, ambiance and accessibility) were reflected in restaurants locations. Novelty of this study was not to classify restaurants by their types (fast food, family etc.), but rather the customers' needs they serve. This is based on the fact that for some types of restaurants (eg. soul food) there is no need for good avaliability, and *journey to dine* becomes an integral part of the dining experience.
 
@@ -111,40 +82,91 @@ One is mainly concentrated on clustering tendencies in restaurants locations. As
 
 [@ayatac2017location] Examinated spatial distribution of restaurants in Istanbul. In this study, data from 1997 and 2013 were analyzed. Thus, it was possible to analyze temporal dynamics. The influence of GNP per area, population density and distance from sea shore was investigated. First two factors were proven to be significant in both analyzed years. As Istanbul was rapidly developing throughout the years, some changes in spatial structure were observed, eg. restaurants *sprawled* from CBD and historical center to less habitated, suburban areas. 
 
+
+
+As all of the above authors stated, the results obtained in one city or region should be carefully extrapolated to other areas. Each city has its own specifics, not to mention country's overall culture and its inhabitants habits.
+
+[@gluchowski2017rynek] Provide an overview of Warsaw restaurants market. They show that the number of restaurants is constantly growing, and Warsaw is a city with the most restaruants in Poland. 3 groups of customers visiting restaurants in Warsaw are shown- people doing this for entertainment purposes (eg. meeting with friends or experiencing new cuisines), tourists visiting Warsaw, and people deciding to take eat outside during the workday, reather than preparing meal at home.  
+
+[@stasiak2015rozwoj] assess the rise and development of *culinary tourism*. They claim that a behaviour of traveling to c
+They provide short overview of restaurants history in modern, post-communism era in Poland, and Warsaw in particular.
+
+
+From the above studies concerning culinary business it can be stated that until now Poles were not much attracted to traditional cuisine. However, the movement of using traditional, long-forgotten polish recipes and ingredients is on the rise. 
+
+
 #### Estimation of Complex Spatial Models
 
 
-Early studies in the area of spatial phenomenas did not account for spatial dependence. The usage of OLS has been common. Later works accounted for spatial lag, however these models were still overly simplistic. In modern studies, more complex models were developed and are in use (...)
+Early studies in the area of spatial phenomenas did not account for spatial dependence. The usage of OLS has been common. Later works accounted for spatial lag, however these models were still overly simplistic. In modern studies, more complex models were developed and are in use.
 
-Even though studies on spatial regression models are (...), there is a big gap in studies concerning development of spatial classification models. In a canonical book in terms of spatial econometrix, LeSage did not even mention classification task. There are only few publications dedicated to this area. In his study http://www.ocs.sfu.ca/~ester/papers/KDD-2009-SpatialClassification.final.pdf (...) developed spatial classification algorithm based on the concept of Voronoi tasselation (...). In his work (https://pdfs.semanticscholar.org/c9e1/0cf4006690e6f3a3c05a151515d0c5a8ca6d.pdf) improved decision tree classification algorithm to take into account spatial relations. The main novelty of this study was implementation of this algorithm using GIS software-specific spatial predicates. This was to improve efficiency and velocity of model fitting and predictions. Also, some solutions were proposed to take into account the data of various types (lines, points, polygons). This algorithm is also capable of using information on different levels of aggregation and feed them into decision tree estimation.
+Even though studies on spatial regression models are advanced (for overview see [@lesage2008introduction]), there is a big gap in studies concerning spatial classification models. There are only few publications dedicated to this area. In his study [@frank2009multi] developed spatial classification algorithm based on the concept of Voronoi tasselation (...). [@koperski1998efficient] improved decision tree classification algorithm to take into account spatial relations. The main novelty of this study was implementation of this algorithm using GIS software-specific spatial predicates. This was to improve efficiency and velocity of model fitting and predictions. Also, some solutions were proposed to take into account the data of various types (lines, points, polygons). This algorithm is also capable of using information on different levels of aggregation and feed them into decision tree estimation.
 
 
 Area of advanced non-parametric and machine learning methods is rapidly growing in recent years. Algorithms like Gradient Boosted Models, Random Forest and Support Vacor Machines are state-of-the art solutions when it comes to various prediction tasks.  Second concern is usage of spatial dimension in 
 
 These algorithms, however, are neglected, when it is important to understand specific process, not only making the best predictions. When it comes to explaining the decisions of algorithms, classic modeling methods like OLS and Logistic Regression are still in large use. Their main advantage, compared to more complex methods, is possibility to quantitavely assess which predictors drive particular decision.
 
-However, because of the fact that complex algorithms cope very well in real-world tasks, efforts are made to create solutions for assesing process of algorithmic decision-making. Another reason for rapid development of Explainable Artificial Intelligence is companies' need to adjust to European GDPR regulation, specifically right to explanation of algorithm's decision (https://www.privacy-regulation.eu/en/r71.htm). Some of the most important frameworks and algorithms are local interpretable model-agnostic explanations [@lime], partial dependency plots [@friedman2001greedy] and model-agnostic variable importance assesment[@fisher2018all].
+However, because of the fact that complex algorithms cope very well in real-world tasks, efforts are made to create solutions for assesing process of algorithmic decision-making. Another reason for rapid development of Explainable Artificial Intelligence is companies' need to adjust to European GDPR regulation, specifically right to explanation of algorithm's decision [@voigt2017eu]. Some of the most important frameworks and algorithms are local interpretable model-agnostic explanations [@lime], partial dependency plots [@friedman2001greedy] and model-agnostic variable importance assesment[@fisher2018all].
 
 Lots of phenomena in real world cannot be  explained by a linear or any other simple relationship. Thus, the usage of Machine Learning methods in various areas of research can be expected. Economics is a field in which a vast amount of parametric statistical analysis was introduced and applied.   
  
 Most of the practical studies that used spatial classification are standard classification algorithms, fit to spatial data. Some of the studies do not take into account spatial dimension. An example is a geological study of landslide probability made by [@goetz2015evaluating]. 
 
 
-Others do, however spatial information is assesed by a primitive method of using geographical coordinates in the model (... lasy?).
+Others do, however spatial information is assesed by a primitive method of using geographical coordinates in the model [@mascaro2014tale].
 
 
 [@kanevski2004environmental] Is one of such studies. It was based on environmental data, however methods developed in the paper can be extrapolated to other areas. A hybrid approach using classical geostatistical tools and 2 machine learning algorithms was used. Main advantage of this method over classic statistics framework is capability of taking into account complex, non-linear relationships. At the same time, the results are still easy to interpret compared to algorithms of which this method consists, that is Artificial Neural Network and Support Vector Machine  
 
-[@khan2002k] Develop an efficient spatial algorithm for classification. Similar to (...link), the main improvement of this study is making a already existing algorithm efficient for spatial datasets. In this approach, a problem of streaming the data and classification *on the fly* is explored. 
+[@khan2002k] Develop an efficient spatial algorithm for classification. Similar to [@koperski1998efficient], the main improvement of this study is making a already existing algorithm efficient for spatial datasets. In this approach, a problem of streaming the data and classification *on the fly* is explored. 
 
 
-However, the usage of Random Forest for spatial modeling is not widely populated. Various studies were conducted in natural sciences. (...) analyzed the usage of Random Forest in comparison with Multiple Linear Regression for prediction of carbon mapping in Amazon Forest. They showed that using spatial context with Random Forest improved explained variation by 16%. 
+However, the usage of Random Forest for spatial modeling is not widely populated. Various studies were conducted in natural sciences. [@mascaro2014tale] analyzed the usage of Random Forest in comparison with Multiple Linear Regression for prediction of carbon mapping in Amazon Forest. They showed that using spatial context with Random Forest improved explained variation.
 
-Similarly, a (..) study, [@vceh2018estimating] used Ranom Forest and Multiple Regression for apartaments prices prediction. Using the first method, improvement in prediction measured by R^2 was 0.34. In this study, however, spatial dimension was not taken into account. 
+Similarly, [@vceh2018estimating] used Ranom Forest and Multiple Regression for apartaments prices prediction. Improvement in predictive power was also substantial. In this study, however, spatial dimension was not taken into account.
+
+#### Variable importance
 
 
+One broad class of assesing importance of variables ... is through using modeling. This way it is possible to asses influence on target variable in a complex way to mimic true relationships in the data. Also these are non-parametric methods that do not require any assumptions about the underlying process (normal distributions etc.). Fulfilling these requirements are hard in real-world people' decission processes, as the decision criteria are usually way more complex. 
+
+Variable importance in context of modeling is defined as measure to what extent is target variable dependent on considered variable. In the case of measuring influence of business and population location on presence f restaurants, variable importance can be thought of as a measure of that influence.
+
+[@wei2015variable] provide an extensive overview of existing variable importance measures. As they state, *"... variable importance analysis (VIA) techniqueswere developed independently in many disciplines"*. 
+
+[@ishwaran2007variable] Provide a theoretical assesment of variable importance measures concerning binary regression trees and Random Forest. 
+
+[@louppe2013understanding] Is a large extension of work of Ishwaran. The study shows that Mean Decrease in Impurity, a standard alogirthm in Random Forest assesment, is a reliable source of information about the importance of variables. Specifically, the authors prove that the algorithm satisfies basic requirement for variable importance method, that is *"[Variable importance] is equal to zero if and only if the variable is irrelevant and it depends only on therelevant variables"*.
+
+[@strobl2007bias] Assess the random forest-based variable importance measurements. They show that some characteristics of independent variables are favoured by an algorithm, and thus a suboptimal subset of features is chosen in the training process. This becomes an issue when there is a mix of categorical and continous features, or when the nominal predictors vary in the number of categories. The authors propose an improved version of random forest algorithm to mitigate that problem.
+
+[@archer2008empirical] Provide a mean decrease in impurity measure empirical assesment. They show that the measure is reliable assesment of the most important variable in the model. The study is focused on a specific problem, that is gene expression measurement, however the underlying data is of specific type, that is *"...predictor variables are standardized, continuous, and possibly highly correlated .."*. Thus, one can conclude about the possibility of using that method in other areas of study.
+
+[@gromping2009variable] Show a comparison of variable importance assesment in a regression task by two algorithms, Random Forest and Linear Regression.
 
 
+[@calle2010letter] Provided a comparison of two Random-Forest-specific variable importance measures- Mean Decrease Accuracy and Mean Decrease Gini. They show that the first measure is highly sensitive to small perturbations in the dataset and generally should be used with caution. They prove that measure based on Gini coefficient is much more robust. 
+
+[@janitza2013auc] Introduce a Area-Under-Curve-based variable importance for using in random forest setttings. They show that the method outperforms the two standard variable importance measures in case of highly imbalanced datasets. The results obtained in balanced classification problems are similar with all 3 methods. 
+
+##### Logistic Regression
+
+The research done on the variable importance in logistic regression is not particularly broad. The existing works are only extensions of VI measures in the setting of ordinary least squares. Moreover, there is no dominating method among researchers, as it is in Mean Decrease Impurity in Random Forest setting. However, some measures have been proposed. 
+
+[@azen2009using] Extended a framework of dominance analysis previously developed for linear regression by [@budescu1993dominance]. 
+
+[@tonidandel2010determining] Use a concept of Relative Weights also firstly developed as a OLS tool.
+
+##### MCR
+
+[@fisher2018all] Provide an algorithm for assesing variable importance called *Model Class Reliance*. Its main advantage is that it is a wrapper over existing modeling tools, and thus it is a model-agnostic algorithm. This leads to another important property, that is, one can easily compare the variable importances of two or more algorithms in a meaningful way. Also, a advantage compared to other metrics is that there is no need to fit the model to the data more thatn once. This is especially important in big  datasets with many observations and variables, where model training alone, not mention cross-validation procedure, can be a resource consuming task.
+
+The inner wrkings of the algorithms is as follows: first, the model is fit on all variables and a goodness-of-fit measure (AUC for example) is checked. Then, one independent variable is randomly shuffled and the goodness-of-fit is measured using perturbed variable. The process is the repeated for each variable in the dataset. The variable importances can be perceived as the difference between the goodness-of-fit of original dataset and the datasets with perturbed one variable. 
+
+In addition, a model in which a dependent (y) variable is shuffled serves as a lower-bound of performance.
+
+The algorithm has been implemented as a part of an R package called DALEX. It is created as a comprehensive set of methods to explain blck-box models using different approaches.
 
 
 ### Dataset description
@@ -173,7 +195,7 @@ The join-count statistic was performed on restaurants presence data. With p-valu
 
 
 
-#### References
+
 ### Methods description
 #### Ogólny opis zadania
 Hipotezy
@@ -181,52 +203,6 @@ Hipotezy
 The goal of this study is to find out what are main factors that drive restaurators' decisions about whether to open a business in a given location. Specifically, I have tested 2 main hypotheses. One is the influence of business proximity. Importance of this factor would mean  that main clients of the restaurants are mainly people during their lunch breaks. The other hypothesis is the influence of population density. This would mean that people go to restaurants in their homes' proximity in the evenings. 
 
 To asses thoroughly the importance of the to factors stated above, I have also included other variables of interest, that can also indirectly influence the restaurants locations. These are proximity of bus stops and total length of roads. These two can be seen as measure of how well is the potential location connected to other parts of the city. 
-
-##### Variable importance
-
-
-
-[@ishwaran2007variable] Provide a theoretical assesment of variable importance measures concerning binary regression trees and Random Forest. 
-
-[@louppe2013understanding] Is a large extension of work of Ishwaran. The study shows that Mean Decrease in Impurity, a standard alogirthm in Random Forest assesment, is a reliable source of information about the importance of variables. Specifically, the authors prove that the algorithm satisfies basic requirement for variable importance method, that is *"[Variable importance] is equal to zero if and only if the variable is irrelevant and it depends only on therelevant variables"*.
-
-[@strobl2007bias] Assess the random forest-based variable importance measurements. They show that some characteristics of independent variables are favoured by an algorithm, and thus a suboptimal subset of features is chosen in the training process. This becomes an issue when there is a mix of categorical and continous features, or when the nominal predictors vary in the number of categories. The authors propose an improved version of random forest algorithm to mitigate that problem.
-
-[@archer2008empirical] Provide a mean decrease in impurity measure empirical assesment. They show that the measure is reliable assesment of the most important variable in the model. The study is focused on a specific problem, that is gene expression measurement, however the underlying data is of specific type, that is *"...predictor variables are standardized, continuous, and possibly highly correlated .."*. Thus, one can conclude about the possibility of using that method in other areas of study.
-
-[@gromping2009variable] Show a comparison of variable importance assesment in a regression task by two algorithms, Random Forest and Linear Regression.
-
-
-One broad class of assesing importance of variables ... is through using modeling. This way it is possible to asses influence on target variable in a complex way to mimic true relationships in the data. Also these are non-parametric methods that do not require any assumptions about the underlying process (normal distributions etc.). Fulfilling these requirements are hard in real-world people' decission processes, as the decision criteria are usually way more complex. 
-
-Variable importance in context of modeling is defined as measure to what extent is target variable dependent on considered variable. In the case of measuring influence of business and population location on presence f restaurants, variable importance can be thought of as a measure of that influence.
-
-[...] provide an extensive overview of existing variable importance measures. As they state, *"... variable importance analysis (VIA) techniqueswere developed independently in many disciplines"*. 
-
-[@calle2010letter] Provided a comparison of two Random-Forest-specific variable importance measures- Mean Decrease Accuracy and Mean Decrease Gini. They show that the first measure is highly sensitive to small perturbations in the dataset and generally should be used with caution. They prove that measure based on Gini coefficient is much more robust. 
-
-[@janitza2013auc] Introduce a Area-Under-Curve-based variable importance for using in random forest setttings. They show that the method outperforms the two standard variable importance measures in case of highly imbalanced datasets. The results obtained in balanced classification problems are similar with all 3 methods. 
-
-#### Opis Logistic Regression
-
-The research done on the variable importance in logistic regression is not particularly broad. The existing works are only extensions of VI measures in the setting of ordinary least squares. Moreover, there is no dominating method among researchers, as it is in Mean Decrease Impurity in Random Forest setting. However, some measures have been proposed. 
-
-[@azen2009using] Extended a framework of dominance analysis previously developed for linear regression by [@budescu1993dominance]. 
-
-[@tonidandel2010determining] Use a concept of Relative Weights also firstly developed as a OLS tool.
-
-#### MCR
-
-(...) Provide an algorithm for assesing variable importance called *Model Class Reliance*. Its main advantage is that it is a wrapper over existing modeling tools, and thus it is a model-agnostic algorithm. This leads to another important property, that is, one can easily compare the variable importances of two or more algorithms in a meaningful way. Also, a advantage compared to other metrics is that there is no need to fit the model to the data more thatn once. This is especially important in big  datasets with many observations and variables, where model training alone, not mention cross-validation procedure, can be a resource consuming task.
-
-The inner wrkings of the algorithms is as follows: first, the model is fit on all variables and a goodness-of-fit measure (AUC for example) is checked. Then, one independent variable is randomly shuffled and the goodness-of-fit is measured using perturbed variable. The process is the repeated for each variable in the dataset. The variable importances can be perceived as the difference between the goodness-of-fit of original dataset and the datasets with perturbed one variable. 
-
-In addition, a model in which a dependent (y) variable is shuffled serves as a lower-bound of performance.
-
-The algorithm has been implemented as a part of an R package called DALEX. It is created as a comprehensive set of methods to explain blck-box models using different approaches.
-
-
-
 
 #### Opis 3 metod
 #### Spatial weights matrix
@@ -237,7 +213,7 @@ As join-count analysis on presence of restaurants shows that there exists poisti
 
 Good practice for estimating machine mearning models is using cross-validation. However, this procedure assumes that subsequent folds are independent from each other. For spatial data this posesses a problem, as choosing completely random observations could lead to leakage of information from other folds. 
 
-The solution was proposed by (...). He suggests that observations chosen to one fold should be densely located to minimise leakage of information from other folds. 
+The solution was proposed by [@baddeley2005residual]. He suggests that observations chosen to one fold should be densely located to minimise leakage of information from other folds. 
 
 I have used similar approach. I have created (...) folds. To simplify the process of splitting the space, I have used Warsaw' districts as aggregating units. Each fold consists of 3-4 districts, as shown on map (...)
 
@@ -245,18 +221,13 @@ The choice of districts to include in one fold was arbitrary, the main criterion
 
 #### Ogólny opis
 
-Some calsses of models have a established method of assesing variable importance. 
-
-
-
-
 In my work I have tried 2 methods to asses whether these predictiors are imporant.
 
 I have chosen random forest for two reasons. First, it is a well established model performing well in various prediction tasks (...). Secondly, assesing variable importance is straightforward and model dependent. 
 
 I have estimated the model on training data described in section (...). I have used *caret* package as wrapper over randomForest method. In each cross validation phase I have tried different number of predictiors used during each tree fitting. Final accuracy of the model was assesed using AUC criterion, as the target variable is slightly imbalanced (In the training set the share of observations without restaurant is ~67%).
 
-Variable importance in RF models was defined in a introducing publication of this model (...). At each of the splits in training phase, the variable on which to make a split is chosen using Gini Impurity criterion. 
+Variable importance in RF models was defined in a introducing publication of this model [@breiman2001random]. At each of the splits in training phase, the variable on which to make a split is chosen using Gini Impurity Criterion. 
 Importance of given variable is defined as sum of decrease in Gini Impurity in all the splits, in which the variable was used.  
 
 
@@ -290,3 +261,5 @@ Spatial autocorrelation also plays an important role in the restaurants location
 
 
 
+
+### References
