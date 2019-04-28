@@ -182,7 +182,7 @@ metoda1_varimp_table
 rf_model <- model_rf_all
 lr_model <- model_lr_all
 
-
+# DALEX ----
 library(DALEX)
 explainer_rf <- DALEX::explain(rf_model, label = "Random Forest", 
                                      data = training, y = training$if_rest)
@@ -192,7 +192,7 @@ explainer_lr <- DALEX::explain(lr_model, label = "Logistic Regression",
 
 
 
-
+var_imp(explainer_rf, list(10, 20), loss_function = pROC::auc)
 rf_imp <-variable_importance(explainer_rf, loss_function = pROC::auc)
 rf_imp %>% arrange(-dropout_loss)
 
