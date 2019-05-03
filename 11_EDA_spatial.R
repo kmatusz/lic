@@ -209,7 +209,7 @@ map_restaurants <- ggplot()+
         axis.text.y=element_blank(),
         axis.ticks.y=element_blank(),
         title = element_text(size = 20)) +
-  scale_fill_brewer(palette = "Set3")
+  scale_fill_viridis_d()
 
 
 map_restaurants

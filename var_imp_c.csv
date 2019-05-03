@@ -1,0 +1,6 @@
+variable;lr;lr_log;rf
+biznes_count n_biznes_count_sum;0,810704362;0,687246457;0,711919978
+bus_count n_bus_count_sum;0,813628786;0,817942484;0,84327591
+n_if_rest_sum n_roads_sum n_bus_count_sum n_tot_sum n_biznes_count_sum;0,708919144;0,764170603;0,68996249
+roads n_roads_sum;0,752702139;0,823839956;0,833759378
+TOT n_tot_sum;0,817101973;0,806710197;0,835398722

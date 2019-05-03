@@ -1,13 +1,13 @@
 ---
 title: "Thesis"
-output: word_document
+output: 
+    word_document:
+        keep_md: yes
 bibliography: bib.bibtex
-
+link-citations: true
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
+
 ### Abstract
 
 
@@ -15,7 +15,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 Choosing an optimal location for any business is a difficult decision every entrepreneur faces. As studies show, the location has potentially tremendous effect on revenue. This is particularly important in restaurant industry, where potential customers can be easily tempted by attractive-looking interior or simply proximity to workplace or home.
 
-In this paper I study the factors driving restaurants locations, specifically in Warsaw market. I study the influence of two factors in depth. First, I check whether **restaurants location is dependent on other businesses locations** in particular area. Second, **if it is dependent on number of inhabitants in the area**. I also assess the importance of communication infrastructure surrounding the restaurants, specifically number of bus stops and roads density.
+In this paper I study the factors driving restaurants locations, specifically in Warsaw market. I study the influence of two factors in depth. First, I check whether **restaurants location is dependent on other businesses locations** in particular area. Second, **if it is dependent on number of inhabitants in the area**. I also assess the importance of communication infrastruocture surrounding the restaurants, specifically number of bus stops and roads density.
 
 There are just a few papers addressing restaurants location specifics in particular. Most of the existing works are also as old as 40 years, and thus are possibly outdated due to transformations in the industry.
 The specifics of restaurant industry is different in each city, thus extrapolating the results from other cities on Warsaw should be done carefully. 
@@ -82,7 +82,7 @@ A study of @neighborhood_food provides different possible reason for specific re
 
 Studies concerning restaurants locations have lots of differences when it comes to methods and hypotheses tested. Thus, the results are rather uncomaparable and have a high degree of uncertainty as no verifying studies were performed. Also, as some of the the above authors stated, the results obtained in one city or region should be carefully extrapolated to other areas. Each city has its own specifics, not to mention country's overall culture and its inhabitants habits. 
 
-There are few studies concerning Warsaw and Poland restaurant market. The most complex is the one made by @gluchowski2017rynek. They show that the number of restaurants in Warsaw is constantly growing. 3 groups of customers visiting restaurants are most visible - people doing this for entertainment purposes (e.g. meeting with friends or experiencing new cuisines), tourists visiting Warsaw, and people deciding to eat outside during the workday, rather than preparing meal at home.  This tendencies could be reflected in spatial distribution of restaurants in Warsaw. One could make assumptions that most restaurants will be situated in touristic district (Stare Miasto) and in business districts (Centrum, Mokotów and Wola). Similar to @pillsbury1987hamburger, restaurants mainly for entertainment purposes will onot be in one specific district, as the "journey to dine" plays a role in customer's decision. However, as Atlanta is a two times smaller city than Warsaw, one can expect that high-quality restaurants will be less likely be located in suburban areas of Warsaw.
+There are few studies concerning Warsaw and Poland restaurant market. The most complex is the one made by @gluchowski2017rynek. They show that the number of restaurants in Warsaw is constantly growing. 3 groups of customers visiting restaurants are most visible - people doing this for entertainment purposes (e.g. meeting with friends or experiencing new cuisines), tourists visiting Warsaw, and people deciding to eat outside during the workday, rather than preparing meal at home.  This tendencies could be reflected in spatial distribution of restaurants in Warsaw. One could make assumptions that most restaurants will be situated in touristic district (Stare Miasto) and in business districts (Centrum, Mokotów and Wola). Similar to @pillsbury1987hamburger, restaurants mainly for entertainment purposes will not be in one specific district, as the "journey to dine" plays a role in customer's decision. However, as Atlanta is a two times smaller city than Warsaw, one can expect that high-quality restaurants will be less likely be located in suburban areas of Warsaw.
 
 
 
@@ -184,19 +184,18 @@ In this setting I have used two models- one is Random Forest, the same as in the
 
 ### Results
 
-Logistic Regression and Random Forest models both performed very well in the classification task. AUC measure on the test set was 0.825 and 0.847, respectively. This shows that presence of restaurants in the area can be easily predicted. Cross-Validation showed that the best value of *mtry*  parameter for Random Forest is 3. This is consistent with @breiman2001random, who suggested setting this parameter to $\sqrt{number\: of\: variables}$. 
+Logistic Regression and Random Forest models both performed very well in the classification task. AUC measure on the test set was 0.89 and 0.9, respectively. This shows that presence of restaurants in the area can be easily predicted. Cross-Validation showed that the best value of *mtry*  parameter for Random Forest is 3.
+
+Spatially lagged predictor variable, that is count of neighboring areas in which there is a restaurant, was an important variable. Logistic Regression use it as the most important one, and both methods with Random Forest assess it as second and third most important (using MCR and MDG approaches, respectively).
+
+Business count in the area was assessed as the most important using Random Forest with both MCR and MDG. 
+
+Population density is shown as insignificant both using Logistic Regression and Random Forest. Also spatially lagged variable is marked as not important.
+
 
 Although both models performed equally well, the factors they took under consideration when making predictions varied. 
-
-**Population density** is shown as insignificant both using Logistic Regression and Random Forest. Also spatially lagged variable is marked as not important.
-
-**Business count** in the area was assessed as the most important using Random Forest with both MCR and MDG. Results concerning business count using Logistic Regression were different from Random Forest after simply using the same variables in both. However, after the business count variable was log-transformed, the results were consistent with Random Forest-based method. 
-
-
-Spatially lagged predictor variable, that is **count of neighboring areas in which there is a restaurant**, was an important variable. Logistic Regression use it as the most important one, and both methods with Random Forest assess it as second and third most important (using MCR and MDG approaches, respectively).
-
-
 Results concerning length of roads were inconsistent among used methods. Using logistic regression with MCR, it was second best predictor. Same results were obtained from Mean Decrease Gini used with Random Forest. However, using MCR with Random Forest showed that this predictor was completely irrelevant, and excluding it from the model even improved performance. Bus stops was the least important variable using all methods. 
+Results concerning business count using Logistic Regression are different from Random Forest after simply using the same variables in both. However, after the business count variable was log-transformed, the results were consistent with Random Forest-based method. 
 
 I have also tested how two models perform with *blindfolded* spatial variables. Both random forest and logistic regression perform significantly worse. This is due to excluding spatially lagged restaurant indicator. 
 
@@ -217,6 +216,8 @@ The goal of this study is to find out what are main factors that drive restaurat
 @archer2008empirical Provide a mean decrease in impurity measure empirical assessment. They show that the measure is reliable assessment of the most important variable in the model. The study is focused on a specific problem, that is gene expression measurement, however the underlying data is of specific type, that is *"...predictor variables are standarized, continuous, and possibly highly correlated .."*. Thus, one can conclude about the possibility of using that method in other areas of study.
 
 
+
+To asses thoroughly the importance of the to factors stated above, I have also included other variables of interest, that can also indirectly influence the restaurants locations. These are proximity of bus stops and total length of roads. These two can be seen as measure of how well is the potential location connected to other parts of the city. 
 
 @esteban2006business Used questionnaires sent directly to randomly selected retail companies in the area to acquire the data about performance of businesses. They showed nonlinear relationship between business performance and the area it resides in. Firms in high and low businesses density areas performed the worst compared to places in which number of businesses was moderate.
 
@@ -239,6 +240,10 @@ Importance of given variable is defined as sum of decrease in Gini Impurity in a
 
 @sadahiro2000pdf Analyzed retail location data in Yokohama, Japan using a probability density function estimated. 
 
+ 
+
+
+For the analysis I have used R CRAN software. For spatial data manipulation, I used sf and .. packages. For general data manipulation tidyverse packages, for model estimation *caret*, *RandomForest* and *DALEX* for implementation of *Model Class Reliance*. 
 
 
 - Businesses location 
@@ -249,6 +254,8 @@ Importance of given variable is defined as sum of decrease in Gini Impurity in a
     - No need to leave neighborhood for entertainment purposes 
     - Friends in the neighborhood
 
+
+There are two main factors that directly drive restaurants locations. One is entrepreneur's decision at the beginning of functioning. The second one is the ability to attract customers. 
 
 
 ### References
